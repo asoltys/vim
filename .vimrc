@@ -1,4 +1,5 @@
 cd /home/adam/adam_soltys
+set smartindent 
 set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
 set nohlsearch
