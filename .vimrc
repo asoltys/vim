@@ -1,4 +1,4 @@
-cd /home/adam/adam_soltys
+cd /home/adam
 set smartindent 
 set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
@@ -47,7 +47,7 @@ nnoremap ` '
 let mapleader = ","
 
 let g:fuzzy_matching_limit=20
-let g:fuzzy_ceiling=2000
-let g:fuzzy_ignore="vendor/*;*.jpg;*.gif"
+let g:fuzzy_ceiling=50000
+let g:fuzzy_ignore="vendor/*;*.jpg;*.gif;.git/*"
 
 let g:NERDTreeChDirMode=2
