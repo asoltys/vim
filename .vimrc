@@ -81,6 +81,7 @@ noremap <C-x> :BufOnly<CR>
 noremap <C-z> :NERDTreeToggle<CR>
 inoremap <C-s> <Esc>:w!<CR>
 inoremap <C-z> <Esc>dbxi
+inoremap </ </<C-X><C-O><Esc>v<<
 vnoremap <C-c> "+y
 noremap <C-v> "+p
 nnoremap ' `
