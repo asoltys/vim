@@ -810,3 +810,4 @@ endfun
 let &cpo = s:save_cpo
 
 " vim:sts=2:sw=2:
+au FileType html,jsp,php,cf if !exists("b:match_words") |
