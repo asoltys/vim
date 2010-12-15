@@ -155,7 +155,6 @@ endfunction
 
 function! session#auto_load() " {{{2
   " Check that the user has started Vim without editing any files.
-  if bufnr('$') == 1 && bufname('%') == '' && !&mod && getline(1, '$') == ['']
     " Check whether a session matching the user-specified server name exists.
     if v:servername !~ '^\cgvim\d*$'
       for session in session#get_names()
@@ -173,7 +172,6 @@ function! session#auto_load() " {{{2
         OpenSession default
       endif
     endif
-  endif
 endfunction
 
 function! session#auto_save() " {{{2

@@ -11,7 +11,6 @@ set viminfo='20,<50,s10,h,%
 syntax on 
 filetype plugin on
 colorscheme wombat 
-let mapleader = ","
 
 " BACKUPS
 
@@ -42,9 +41,29 @@ set title
 set scrolloff=3
 set incsearch
 
+" GENERAL AUTOCOMPLETION
+
+set completeopt=longest,menuone
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
+
+" COLDFUSION AUTOCOMPLETION 
+
+set dict+=~/.vim/dict/cf.dict
+set complete-=k complete+=k
+
+" use Ctrl-j to jump to and from stard and end tags.
+" use Ctrl-k to wrap selected text in a tag.
+" use Ctrl-l to complete tags.  Twice to open a new line and autoindent.
+nmap <C-j> <LocalLeader>5
+vmap <C-j> <LocalLeader>5
+vmap <C-k> <LocalLeader>x
+let xml_tag_completion_map = "<C-l>"
 
 " CUSTOM MAPPINGS
 
+let mapleader = ","
 nmap <silent> <leader>s :set nolist!<CR>
 noremap <C-e><C-v> :e ~/.vimrc<CR>
 noremap <C-e><C-l> :so ~/.vimrc<CR>
@@ -65,37 +84,14 @@ noremap <C-v> "+p
 nnoremap ' `
 nnoremap ` '
 
-" GENERAL AUTOCOMPLETION
-
-set completeopt=longest,menuone
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
-inoremap <expr> <C-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-" COLDFUSION AUTOCOMPLETION 
-
-set dict+="~/.vim/dict/cf.dict"
-set complete-=k complete+=k
-let xml_tag_completion_map = "<C-l>"
-
-" use Ctrl-j to jump to and from stard and end tags.
-" use Ctrl-k to wrap selected text in a tag.
-" use Ctrl-l to complete tags.  Twice to open a new line and autoindent.
-nmap <C-j> <LocalLeader>5
-vmap <C-j> <LocalLeader>5
-vmap <C-k> <LocalLeader>x
-
 " FILE FINDER
 
 let g:fuzzy_matching_limit=20
 let g:fuzzy_ceiling=50000
 let g:fuzzy_ignore="vendor/*;*.jpg;*.gif;.git/*"
 let g:NERDTreeChDirMode=2
+
+" SESSION MANAGER
 
 let g:session_autoload=1
 let g:session_autosave=1
