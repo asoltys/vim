@@ -96,8 +96,8 @@ let g:NERDTreeChDirMode=2
 
 " SESSION MANAGER
 
-let g:session_autoload=1
-let g:session_autosave=1
+" let g:session_autoload=1
+" let g:session_autosave=1
 
 " TAG AUTOCLOSING
 au FileType xhtml,xml,cfm,html so ~/.vim/ftplugin/html_autoclosetag.vim
