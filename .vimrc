@@ -6,7 +6,6 @@ set listchars=tab:>-,trail:·,eol:$
 set shortmess=atI
 set visualbell
 set confirm
-set viminfo='20,<50,s10,h,%
 
 syntax on 
 filetype plugin on
@@ -81,7 +80,7 @@ noremap <C-x> :BufOnly<CR>
 noremap <C-z> :NERDTreeToggle<CR>
 inoremap <C-s> <Esc>:w!<CR>
 inoremap <C-z> <Esc>dbxi
-inoremap </ </<C-X><C-O><Esc>v<<
+inoremap <, </<C-X><C-O><Esc>v<<
 vnoremap <C-c> "+y
 noremap <C-v> "+p
 nnoremap ' `
@@ -96,8 +95,8 @@ let g:NERDTreeChDirMode=2
 
 " SESSION MANAGER
 
-" let g:session_autoload=1
-" let g:session_autosave=1
+let g:session_autoload=1
+let g:session_autosave=1
 
 " TAG AUTOCLOSING
 au FileType xhtml,xml,cfm,html so ~/.vim/ftplugin/html_autoclosetag.vim

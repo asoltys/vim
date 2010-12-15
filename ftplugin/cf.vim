@@ -31,36 +31,32 @@
 
 "==============================================================================
 
-" Only do this when not done yet for this buffer
-if exists("b:did_ftplugin")
-  finish
-endif
-
-if exists("loaded_matchit")
-    let b:match_words = '<cfif\>.\{-}>\|<cfif\>.\{-}$:'
-            \ . '<cfelseif\>.\{-}>\|<cfelseif\>.\{-}$:'
-            \ . '<cfelse\>.\{-}>\|<cfelse\>.\{-}$:'
-            \ . '<\/cfif>,'
-        \ . '<cfloop\>.\{-}>\|<cfloop\>.\{-}$:'
-            \ . '<\/cfloop\>.\{-}>,'
-        \ . '<cfoutput\>.\{-}>\|<cfoutput\>.\{-}$:'
-            \ . '<\/cfoutput\>.\{-}>,'
-        \ . '<cftimer\>.\{-}>\|<cftimer\>.\{-}$:'
-            \ . '<\/cftimer\>.\{-}>,'
-        \ . '<!---:--->,'
-        \ . '<cfquery\>.\{-}>\|<cfquery\>.\{-}$:<\/cfquery\>.\{-}>,'
-        \ . '<cfscript>:<\/cfscript>'
-    " Since we are counting things outside of comments only,
-    " It is important we account comments accurately or match_words
-    " will be wrong and therefore useless
-    syntax sync fromstart
-
-endif " exists("loaded_matchit")
 
 " Only do this when not done yet for this buffer
 if exists("b:did_ftplugin") || exists("loaded_xmledit")
   finish
 endif
+
+if exists("loaded_matchit")
+  let b:match_words = '<cfif\>.\{-}>\|<cfif\>.\{-}$:'
+          \ . '<cfelseif\>.\{-}>\|<cfelseif\>.\{-}$:'
+          \ . '<cfelse\>.\{-}>\|<cfelse\>.\{-}$:'
+          \ . '<\/cfif>,'
+      \ . '<cfloop\>.\{-}>\|<cfloop\>.\{-}$:'
+          \ . '<\/cfloop\>.\{-}>,'
+      \ . '<cfoutput\>.\{-}>\|<cfoutput\>.\{-}$:'
+          \ . '<\/cfoutput\>.\{-}>,'
+      \ . '<cftimer\>.\{-}>\|<cftimer\>.\{-}$:'
+          \ . '<\/cftimer\>.\{-}>,'
+      \ . '<!---:--->,'
+      \ . '<cfquery\>.\{-}>\|<cfquery\>.\{-}$:<\/cfquery\>.\{-}>,'
+      \ . '<cfscript>:<\/cfscript>'
+  " Since we are counting things outside of comments only,
+  " It is important we account comments accurately or match_words
+  " will be wrong and therefore useless
+  syntax sync fromstart
+endif " exists("loaded_matchit")
+
 " sboles, init these variables so vim doesn't complain on wrap cancel
 let b:last_wrap_tag_used = ""
 let b:last_wrap_atts_used = ""

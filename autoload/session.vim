@@ -96,59 +96,12 @@ function! session#save_state(commands) " {{{2
     if lines[-1] == '" vim: set ft=vim :'
       call remove(lines, -1)
     endif
-    call session#save_special_windows(lines)
     call extend(a:commands, lines)
     return 1
   finally
     let &sessionoptions = ssop_save
     call delete(tempfile)
   endtry
-endfunction
-
-" Integration between :mksession, :NERDTree and :Project. {{{3
-
-function! session#save_special_windows(session)
-  if exists(':NERDTree') == 2 && match(a:session, '\<NERD_tree_\d\+$') >= 0
-          \ || exists(':Project') == 2 && exists('g:proj_running')
-    let tabpage = tabpagenr()
-    let window = winnr()
-    try
-      if &sessionoptions =~ '\<tabpages\>'
-        tabdo windo call s:check_special_window(a:session)
-      else
-        windo call s:check_special_window(a:session)
-      endif
-    finally
-      execute 'tabnext' tabpage
-      execute window . 'wincmd w'
-      if &sessionoptions =~ '\<tabpages\>'
-        call add(a:session, 'tabnext ' . tabpage)
-      endif
-      call add(a:session, window . 'wincmd w')
-    endtry
-  endif
-endfunction
-
-function! s:check_special_window(session)
-  if exists('b:NERDTreeRoot')
-    let command = 'NERDTree'
-    let argument = b:NERDTreeRoot.path.str()
-  elseif exists('g:proj_running') && g:proj_running == bufnr('%')
-    let command = 'Project'
-    let argument = expand('%:p')
-  endif
-  if exists('command')
-    if &sessionoptions =~ '\<tabpages\>'
-      call add(a:session, 'tabnext ' . tabpagenr())
-    endif
-    call add(a:session, winnr() . 'wincmd w')
-    call add(a:session, 'bwipeout')
-    let argument = fnamemodify(argument, ':~')
-    if &sessionoptions =~ '\<slash\>'
-      let argument = substitute(argument, '\', '/', 'g')
-    endif
-    call add(a:session, command . ' ' . fnameescape(argument))
-  endif
 endfunction
 
 " Automatic commands to manage the default session. {{{1
