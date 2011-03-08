@@ -100,3 +100,6 @@ let g:session_autosave=1
 
 " TAG AUTOCLOSING
 au FileType xhtml,xml,cfm,html so ~/.vim/ftplugin/html_autoclosetag.vim
+
+" exec "let g:fuzzy_roots=[getcwd()]"
+" exec "ruby @finder = nil"
