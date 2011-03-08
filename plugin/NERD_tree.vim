@@ -154,7 +154,7 @@ command! -n=1 -complete=customlist,s:completeBookmarks NERDTreeFromBookmark call
 "Save the cursor position whenever we close the nerd tree
 exec "autocmd BufWinLeave *". s:NERDTreeWinName ." call <SID>saveScreenState()"
 "cache bookmarks when vim loads
-autocmd VimEnter * call s:Bookmark.CacheBookmarks(0)
+autocmd VimEnter * call s:Bookmark.CacheBookmarks(1)
 
 "SECTION: Classes {{{1
 "============================================================
@@ -2876,7 +2876,7 @@ function! s:bindMappings()
     command! -buffer -complete=customlist,s:completeBookmarks -nargs=* ClearBookmarks call <SID>clearBookmarks('<args>')
     command! -buffer -complete=customlist,s:completeBookmarks -nargs=+ BookmarkToRoot call s:Bookmark.ToRoot('<args>')
     command! -buffer -nargs=0 ClearAllBookmarks call s:Bookmark.ClearAll() <bar> call <SID>renderView()
-    command! -buffer -nargs=0 ReadBookmarks call s:Bookmark.CacheBookmarks(0) <bar> call <SID>renderView()
+    command! -buffer -nargs=0 ReadBookmarks call s:Bookmark.CacheBookmarks(1) <bar> call <SID>renderView()
     command! -buffer -nargs=0 WriteBookmarks call s:Bookmark.Write()
 endfunction
 
