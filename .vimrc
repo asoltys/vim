@@ -5,11 +5,17 @@ set ruler
 set listchars=tab:>-,trail:·,eol:$
 set shortmess=atI
 set visualbell
-set confirm
+set statusline=%{fugitive#statusline()}%#StatusLine#
 
 syntax on 
 filetype plugin on
+
+if &diff
+set t_Co=256
+colorscheme peaksea
+else
 colorscheme wombat 
+endif
 
 " BACKUPS
 
