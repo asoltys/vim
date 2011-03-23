@@ -103,6 +103,7 @@ let g:fuzzy_matching_limit=20
 let g:fuzzy_ceiling=50000
 let g:fuzzy_ignore="vendor/*;*.jpg;*.gif;.git/*"
 let g:NERDTreeChDirMode=2
+let g:NERDTreeQuitOnOpen=1
 
 " SESSION MANAGER
 
@@ -110,10 +111,7 @@ let g:session_autoload=1
 let g:session_autosave=1
 
 " TAG AUTOCLOSING
-au FileType xhtml,xml,cfm,html so ~/.vim/ftplugin/html_autoclosetag.vim
-
-" exec "let g:fuzzy_roots=[getcwd()]"
-" exec "ruby @finder = nil"
+au FileType xhtml,xml,cfm,html,rhtml,erb so ~/.vim/ftplugin/html_autoclosetag.vim
 
 function! RepeatChar(char, count)
  return repeat(a:char, a:count)
