@@ -2774,7 +2774,7 @@ function! s:toggle(dir)
             call s:closeTree()
         endif
     else
-        call s:initNerdTree(a:dir)
+        call s:initNerdTree(getcwd())
     endif
 endfunction
 "SECTION: Interface bindings {{{1
