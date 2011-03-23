@@ -6,6 +6,8 @@ set listchars=tab:>-,trail:·,eol:$
 set shortmess=atI
 set visualbell
 set statusline=%{fugitive#statusline()}%#StatusLine#
+set number
+set hidden
 
 syntax on 
 filetype plugin on
@@ -87,7 +89,10 @@ noremap <C-z> :NERDTreeToggle<CR>
 inoremap <C-s> <Esc>:w!<CR>
 inoremap <C-z> <Esc>dbxi
 inoremap <, </<C-X><C-O><Esc>v<<
+inoremap <C-CR> :wq<CR>
 vnoremap <C-c> "+y
+vnoremap <C-b> :s/^/# <CR>
+vnoremap <C-d> :s/^# //<CR>
 noremap <C-v> "+p
 nnoremap ' `
 nnoremap ` '
