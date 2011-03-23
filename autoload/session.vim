@@ -11,6 +11,10 @@
 " session#save_session() which expects the target filename as 2nd argument:
 
 function! session#save_session(commands, filename) " {{{2
+  if exists(':NERDTree') == 2
+    execute 'NERDTreeClose'
+  endif
+
   call add(a:commands, '" ' . a:filename . ': Vim session script.')
   call add(a:commands, '" Created by session.vim on ' . strftime('%d %B %Y at %H:%M:%S.'))
   call add(a:commands, '" Open this file in Vim and run :source % to restore your session.')
