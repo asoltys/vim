@@ -59,7 +59,7 @@ call s:initVariable("g:NERDTreeBookmarksFile", expand('$HOME') . '/.NERDTreeBook
 call s:initVariable("g:NERDTreeMouseMode", 1)
 call s:initVariable("g:NERDTreeNotificationThreshold", 100)
 call s:initVariable("g:NERDTreeQuitOnOpen", 0)
-call s:initVariable("g:NERDTreeShowBookmarks", 0)
+call s:initVariable("g:NERDTreeShowBookmarks", 1)
 call s:initVariable("g:NERDTreeShowFiles", 1)
 call s:initVariable("g:NERDTreeShowHidden", 0)
 call s:initVariable("g:NERDTreeShowLineNumbers", 0)
@@ -1998,11 +1998,8 @@ function! s:dumpHelp()
         let @h=@h."\" :OpenBookmark <name>\n"
         let @h=@h."\" :ClearBookmarks [<names>]\n"
         let @h=@h."\" :ClearAllBookmarks\n"
-    else
-        let @h="\" Press ". g:NERDTreeMapHelp ." for help\n"
+        silent! put h
     endif
-
-    silent! put h
 
     let @h = old_h
 endfunction
@@ -2476,8 +2473,6 @@ endfunction
 
 "FUNCTION: s:renderBookmarks {{{2
 function! s:renderBookmarks()
-
-    call setline(line(".")+1, ">----------Bookmarks----------")
     call cursor(line(".")+1, col("."))
 
     for i in s:Bookmark.Bookmarks()
