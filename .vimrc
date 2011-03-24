@@ -103,7 +103,6 @@ let g:fuzzy_matching_limit=20
 let g:fuzzy_ceiling=50000
 let g:fuzzy_ignore="vendor/*;*.jpg;*.gif;.git/*"
 let g:NERDTreeChDirMode=2
-let g:NERDTreeQuitOnOpen=1
 
 " SESSION MANAGER
 
