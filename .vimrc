@@ -94,6 +94,8 @@ vnoremap <C-c> "+y
 vnoremap <C-b> :s/^/# <CR>
 vnoremap <C-d> :s/^# //<CR>
 noremap <C-v> "+p
+inoremap <C-v> <Esc>"+pa
+inoremap <C-q> <Esc>:wq<CR>
 nnoremap ' `
 nnoremap ` '
 
