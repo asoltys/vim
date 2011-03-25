@@ -74,19 +74,20 @@ let xml_tag_completion_map = "<C-l>"
 
 let mapleader = ","
 nmap <silent> <leader>s :set nolist!<CR>
+nmap <C-q> :bn <bar> bw #<CR>
+imap <C-q> <Esc>:wq<CR>
+nmap <C-s> :w!<CR>
+imap <C-s> <Esc>:w!<CR>
 noremap <C-e><C-v> :e ~/.vimrc<CR>
 noremap <C-e><C-l> :so ~/.vimrc<CR>
 noremap <C-y> <C-r>
 noremap <C-n> :bnext<CR>
 noremap <C-p> :bprev<CR>
-noremap <C-q> :bn <bar> bw #<CR>
-noremap <C-s> :w!<CR>
 noremap <C-g> :Ack<space>
 noremap <C-f> :FuzzyFinderTextMate<CR>
 noremap <C-b> :FuzzyFinderBuffer<CR>
 noremap <C-x> :BufOnly<CR>
 noremap <C-z> :NERDTreeToggle<CR>
-inoremap <C-s> <Esc>:w!<CR>
 inoremap <C-z> <Esc>dbxi
 inoremap <, </<C-X><C-O><Esc>v<<
 inoremap <C-CR> :wq<CR>
@@ -95,7 +96,6 @@ vnoremap <C-b> :s/^/# <CR>
 vnoremap <C-d> :s/^# //<CR>
 noremap <C-v> "+p
 inoremap <C-v> <Esc>"+pa
-inoremap <C-q> <Esc>:wq<CR>
 nnoremap ' `
 nnoremap ` '
 
