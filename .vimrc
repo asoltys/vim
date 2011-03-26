@@ -32,8 +32,10 @@ inoremap <C-j> <Down>
 nnoremap <C-CR> i<CR><Esc>
 inoremap <C-k> <Up>" GENERAL OPTIONS
 nnoremap <C-M> <C-Q>
-nnoremap <S-Left> <C-W>l
+nnoremap <S-Left> <C-W>h
 nnoremap <S-Right> <C-W>l
+
+" GENERAL SETTINGS
 
 set nocp
 set ruler
@@ -43,9 +45,12 @@ set visualbell
 set statusline=%{fugitive#statusline()}%#StatusLine#
 set number
 set hidden
+set history=1000
 
 syntax on 
 filetype plugin on
+
+" DIFF MODE THEME
 
 if &diff
 set t_Co=256
@@ -61,8 +66,6 @@ set nowritebackup
 set noswapfile
 set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
-set nohlsearch
-set history=1000
 
 " INDENTING
 
@@ -82,20 +85,20 @@ set smartcase
 set title
 set scrolloff=3
 set incsearch
+set nohlsearch
 
 " GENERAL AUTOCOMPLETION
 
-set omnifunc=xmlcomplete#CompleteTags
-set completeopt=longest,menuone
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
+" set omnifunc=xmlcomplete#CompleteTags
+" set completeopt=longest,menuone
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
 
 " COLDFUSION AUTOCOMPLETION 
 
 set dict+=~/.vim/dict/cf.dict
 set complete-=k complete+=k
-
 
 " RAG TAG
 
@@ -121,3 +124,8 @@ endfunction
 
 nnoremap s :<C-U>exec "normal i".RepeatChar(nr2char(getchar()), v:count1)<CR>
 nnoremap S :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
+
+" HIGHLIGHT TEXT PAST 80 COLUMNS
+
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/
