@@ -2417,20 +2417,7 @@ endfunction
 "FUNCTION: s:putCursorOnBookmarkTable(){{{2
 "Places the cursor at the top of the bookmarks table
 function! s:putCursorOnBookmarkTable()
-    if !t:NERDTreeShowBookmarks
-        throw "NERDTree.IllegalOperation exception: cant find bookmark table, bookmarks arent active"
-    endif
-
-    let rootNodeLine = s:findRootNodeLineNumber()
-
-    let line = 1
-    while getline(line) !~ '^>-\+Bookmarks-\+$'
-        let line = line + 1
-        if line >= rootNodeLine
-            throw "NERDTree.BookmarkTableNotFound exception: didnt find the bookmarks table"
-        endif
-    endwhile
-    call cursor(line, 0)
+    call cursor(2, 0)
 endfunction
 
 "FUNCTION: s:putCursorOnNode(treenode, isJump, recurseUpward){{{2

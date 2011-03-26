@@ -1,4 +1,39 @@
-" GENERAL OPTIONS
+" CUSTOM MAPPINGS
+
+let mapleader = ","
+nmap <silent> <leader>s :set nolist!<CR>
+nmap <C-q> :bn <bar> bw #<CR>
+imap <C-q> <Esc>:wq<CR>
+nmap <C-s> :w!<CR>
+imap <C-s> <Esc>:w!<CR>
+noremap <C-e><C-v> :e ~/.vimrc<CR>
+nnoremap <C-l> :so ~/.vimrc<CR>
+noremap <C-y> <C-r>
+noremap <C-n> :bnext<CR>
+noremap <C-p> :bprev<CR>
+noremap <C-g> :Ack<space>
+noremap <C-f> :FuzzyFinderTextMate<CR>
+noremap <C-b> :FuzzyFinderBuffer<CR>
+nnoremap <C-x> :BufOnly<CR>
+noremap <C-z> :NERDTreeToggle<CR>
+inoremap <C-z> <Esc>dbxi
+inoremap <, </<C-X><C-O><Esc>v<<
+vnoremap <C-c> "+y
+vnoremap <C-b> :s/^/# <CR>
+vnoremap <C-d> :s/^# //<CR>
+nnoremap <C-m> <C-v>
+noremap <C-v> "+p
+inoremap <C-v> <Esc>"+pa
+nnoremap <C-h> :vert bel help<Space>
+nnoremap ' `
+nnoremap ` '
+inoremap <M-o> <Esc>o
+inoremap <C-j> <Down>
+nnoremap <C-CR> i<CR><Esc>
+inoremap <C-k> <Up>" GENERAL OPTIONS
+nnoremap <C-M> <C-Q>
+nnoremap <S-Left> <C-W>l
+nnoremap <S-Right> <C-W>l
 
 set nocp
 set ruler
@@ -61,43 +96,10 @@ inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>
 set dict+=~/.vim/dict/cf.dict
 set complete-=k complete+=k
 
-" use Ctrl-j to jump to and from stard and end tags.
-" use Ctrl-k to wrap selected text in a tag.
-" use Ctrl-l to complete tags.  Twice to open a new line and autoindent.
-nmap <C-j> <LocalLeader>5
-vmap <C-j> <LocalLeader>5
-vmap <C-k> <LocalLeader>x
-let xml_tag_completion_map = "<C-l>"
 
+" RAG TAG
 
-" CUSTOM MAPPINGS
-
-let mapleader = ","
-nmap <silent> <leader>s :set nolist!<CR>
-nmap <C-q> :bn <bar> bw #<CR>
-imap <C-q> <Esc>:wq<CR>
-nmap <C-s> :w!<CR>
-imap <C-s> <Esc>:w!<CR>
-noremap <C-e><C-v> :e ~/.vimrc<CR>
-noremap <C-e><C-l> :so ~/.vimrc<CR>
-noremap <C-y> <C-r>
-noremap <C-n> :bnext<CR>
-noremap <C-p> :bprev<CR>
-noremap <C-g> :Ack<space>
-noremap <C-f> :FuzzyFinderTextMate<CR>
-noremap <C-b> :FuzzyFinderBuffer<CR>
-noremap <C-x> :BufOnly<CR>
-noremap <C-z> :NERDTreeToggle<CR>
-inoremap <C-z> <Esc>dbxi
-inoremap <, </<C-X><C-O><Esc>v<<
-inoremap <C-CR> :wq<CR>
-vnoremap <C-c> "+y
-vnoremap <C-b> :s/^/# <CR>
-vnoremap <C-d> :s/^# //<CR>
-noremap <C-v> "+p
-inoremap <C-v> <Esc>"+pa
-nnoremap ' `
-nnoremap ` '
+let g:ragtag_global_maps = 1
 
 " FILE FINDER
 
@@ -111,8 +113,7 @@ let g:NERDTreeChDirMode=2
 let g:session_autoload=1
 let g:session_autosave=1
 
-" TAG AUTOCLOSING
-au FileType xhtml,xml,cfm,html,rhtml,erb so ~/.vim/ftplugin/html_autoclosetag.vim
+" SINGLE CHARACTER INSERTION
 
 function! RepeatChar(char, count)
  return repeat(a:char, a:count)
