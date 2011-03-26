@@ -129,3 +129,6 @@ nnoremap S :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
 
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
+
+au VimEnter * !stty -ixon
+au VimLeave * !stty ixon
