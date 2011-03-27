@@ -31,7 +31,8 @@ inoremap <M-o> <Esc>o
 inoremap <C-j> <Down>
 nnoremap <C-CR> i<CR><Esc>
 inoremap <C-k> <Up>" GENERAL OPTIONS
-nnoremap <C-M> <C-Q>
+nnoremap <C-a> ggvG$
+nnoremap <C-e> <C-q>
 nnoremap <S-Left> <C-W>h
 nnoremap <S-Right> <C-W>l
 
@@ -106,8 +107,8 @@ let g:ragtag_global_maps = 1
 
 " FILE FINDER
 
-let g:fuzzy_matching_limit=20
-let g:fuzzy_ceiling=50000
+let g:fuzzy_matching_limit=5
+let g:fuzzy_ceiling=2000
 let g:fuzzy_ignore="vendor/*;*.jpg;*.gif;.git/*"
 let g:NERDTreeChDirMode=2
 
@@ -129,6 +130,3 @@ nnoremap S :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
 
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
-
-au VimEnter * !stty -ixon
-au VimLeave * !stty ixon
