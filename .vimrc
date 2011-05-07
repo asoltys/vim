@@ -30,6 +30,7 @@ nnoremap ` '
 inoremap <M-o> <Esc>o
 inoremap <C-j> <Down>
 nnoremap <C-CR> i<CR><Esc>
+inoremap <C-CR> <CR><CR><Up><Tab>
 inoremap <C-k> <Up>" GENERAL OPTIONS
 nnoremap <C-a> ggvG$
 nnoremap <C-e> <C-q>
@@ -48,7 +49,7 @@ set number
 set hidden
 set history=1000
 
-syntax on 
+syntax on
 filetype plugin on
 
 " DIFF MODE THEME
@@ -57,7 +58,7 @@ if &diff
 set t_Co=256
 colorscheme peaksea
 else
-colorscheme wombat 
+colorscheme wombat
 endif
 
 " BACKUPS
@@ -70,8 +71,8 @@ set directory=~/.vim/tmp
 
 " INDENTING
 
-set smartindent 
-set softtabstop=2 
+set smartindent
+set softtabstop=2
 set shiftwidth=2
 set tabstop=2
 set expandtab
@@ -96,7 +97,7 @@ set nohlsearch
 " inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 " inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
 
-" COLDFUSION AUTOCOMPLETION 
+" COLDFUSION AUTOCOMPLETION
 
 set dict+=~/.vim/dict/cf.dict
 set complete-=k complete+=k
@@ -130,3 +131,6 @@ nnoremap S :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
 
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
+
+" REMOVE TRAILING WHITESPACE
+autocmd BufWritePre * :%s/\s\+$//e
