@@ -1,6 +1,7 @@
 " CUSTOM MAPPINGS
 
 let mapleader = ","
+map ,cd :cd %:p:h<CR>:let g:fuzzy_roots=[getcwd()]<CR>:ruby @finder=nil<CR>:pwd<CR>
 nmap <silent> <leader>s :set nolist!<CR>
 nmap <C-q> :bn <bar> bw #<CR>
 imap <C-q> <Esc>:wq<CR>
@@ -44,13 +45,17 @@ set ruler
 set listchars=tab:>-,trail:·,eol:$
 set shortmess=atI
 set visualbell
-set statusline=%{fugitive#statusline()}%#StatusLine#
+set statusline+=\ %{getline('.')[col('.')-1]},\ %b,\ 0x%B
+" set statusline=%{fugitive#statusline()}%#StatusLine#
 set number
 set hidden
 set history=1000
+set nowrap
 
 syntax on
 filetype plugin on
+au BufNewFile,BufRead *.ru set filetype=ruby
+
 
 " DIFF MODE THEME
 
@@ -133,4 +138,12 @@ nnoremap S :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
 " match OverLength /\%81v.\+/
 
 " REMOVE TRAILING WHITESPACE
-autocmd BufWritePre * :%s/\s\+$//e
+" autocmd BufWritePre * :%s/\s\+$//e
+"
+
+au WinLeave * set nocursorline 
+au WinEnter * set cursorline 
+set cursorline 
+
+command! -bar -nargs=0 SudoW :silent exe "write !sudo tee % >/dev/null" | silent edit!
+let g:ruby_debugger_debug_mode = 1
