@@ -37,6 +37,7 @@ nnoremap <C-a> ggvG$
 nnoremap <C-e> <C-q>
 nnoremap <S-Left> <C-W>h
 nnoremap <S-Right> <C-W>l
+nnoremap <M-z> :NERDTree %:p:h<CR>
 
 " GENERAL SETTINGS
 
@@ -51,6 +52,7 @@ set number
 set hidden
 set history=1000
 set nowrap
+set autochdir " always change to the directory of the current buffer
 
 syntax on
 filetype plugin on
