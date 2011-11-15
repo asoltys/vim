@@ -1,4 +1,6 @@
-sessions/*
-tmp/*
-*.swp
-.netrwhist
+.gitignore
+install.bat
+doc/tags
+cookies/
+sessions/
+tmp/
