@@ -1,7 +1,8 @@
 " CUSTOM MAPPINGS
 
 let mapleader = ","
-map ,cd :cd %:p:h<CR>:let g:fuzzy_roots=[getcwd()]<CR>:ruby @finder=nil<CR>:pwd<CR>
+map ,cd :cd %:p:h<CR>
+map ,f :let g:fuzzy_roots=[getcwd()]<CR>:ruby @finder=nil<CR>
 nmap <silent> <leader>s :set nolist!<CR>
 nmap <C-q> :bn <bar> bw #<CR>
 imap <C-q> <Esc>:wq<CR>
@@ -30,9 +31,9 @@ nnoremap ' `
 nnoremap ` '
 inoremap <M-o> <Esc>o
 inoremap <C-j> <Down>
+inoremap <C-k> <Up>
 nnoremap <C-CR> i<CR><Esc>
 inoremap <C-CR> <CR><CR><Up><Tab>
-inoremap <C-k> <Up>" GENERAL OPTIONS
 nnoremap <C-a> ggvG$
 nnoremap <C-e> <C-q>
 nnoremap <S-Left> <C-W>h
@@ -52,12 +53,10 @@ set number
 set hidden
 set history=1000
 set nowrap
-set autochdir " always change to the directory of the current buffer
 
 syntax on
 filetype plugin on
 au BufNewFile,BufRead *.ru set filetype=ruby
-
 
 " DIFF MODE THEME
 
