@@ -34,11 +34,12 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 nnoremap <C-CR> i<CR><Esc>
 inoremap <C-CR> <CR><CR><Up><Tab>
-nnoremap <C-a> ggvG$
+" nnoremap <C-a> ggvG$
 nnoremap <C-e> <C-q>
 nnoremap <S-Left> <C-W>h
 nnoremap <S-Right> <C-W>l
 nnoremap <M-z> :NERDTree %:p:h<CR>
+nnoremap K Jx
 
 " GENERAL SETTINGS
 
@@ -132,6 +133,11 @@ endfunction
 
 nnoremap s :<C-U>exec "normal i".RepeatChar(nr2char(getchar()), v:count1)<CR>
 nnoremap S :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
+
+" GIST
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_clip_command = 'xclip -selection clipboard'
 
 " HIGHLIGHT TEXT PAST 80 COLUMNS
 
