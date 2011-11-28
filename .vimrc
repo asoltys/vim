@@ -48,6 +48,7 @@ set nocp
 set ruler
 set listchars=tab:>-,trail:·,eol:$
 set shortmess=atI
+set cmdheight=2
 set visualbell
 set statusline+=\ %{getline('.')[col('.')-1]},\ %b,\ 0x%B
 " set statusline=%{fugitive#statusline()}%#StatusLine#
@@ -147,6 +148,10 @@ let g:gist_clip_command = 'xclip -selection clipboard'
 " REMOVE TRAILING WHITESPACE
 " autocmd BufWritePre * :%s/\s\+$//e
 "
+
+" MINI BUF EXPLORER
+let g:miniBufExplorerMoreThanOne = 0
+let g:miniBufExplMapWindowNavArrows = 1
 
 au WinLeave * set nocursorline 
 au WinEnter * set cursorline 
