@@ -56,21 +56,17 @@ set number
 set hidden
 set history=1000
 set nowrap
-set guifont=DejaVu\ Sans\ Mono\ 12
 
 syntax on
 filetype plugin on
 au BufNewFile,BufRead *.ru set filetype=ruby
 
-" DIFF MODE THEME
+" THEME
 
-if &diff
-  set t_Co=256
-  colorscheme peaksea
-else
-  set background=light
-  colorscheme solarized
-endif
+set t_Co=256
+set background=light
+set guifont=DejaVu\ Sans\ Mono\ 12
+colorscheme solarized
 
 " BACKUPS
 
