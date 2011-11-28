@@ -1,4 +1,5 @@
 " CUSTOM MAPPINGS
+call pathogen#infect()
 
 let mapleader = ","
 map ,cd :cd %:p:h<CR>
@@ -14,8 +15,8 @@ noremap <C-y> <C-r>
 noremap <C-n> :bnext<CR>
 noremap <C-p> :bprev<CR>
 noremap <C-g> :Ack<space>
-noremap <C-f> :FuzzyFinderTextMate<CR>
-noremap <C-b> :FuzzyFinderBuffer<CR>
+noremap <C-f> :CommandT<CR>
+noremap <C-b> :CommandTBuffer<CR>
 nnoremap <C-x> :BufOnly<CR>
 noremap <C-z> :NERDTreeToggle<CR>
 inoremap <C-z> <Esc>dbxi
@@ -54,6 +55,7 @@ set number
 set hidden
 set history=1000
 set nowrap
+set guifont=DejaVu\ Sans\ Mono\ 12
 
 syntax on
 filetype plugin on
@@ -62,10 +64,11 @@ au BufNewFile,BufRead *.ru set filetype=ruby
 " DIFF MODE THEME
 
 if &diff
-set t_Co=256
-colorscheme peaksea
+  set t_Co=256
+  colorscheme peaksea
 else
-colorscheme wombat
+  set background=light
+  colorscheme solarized
 endif
 
 " BACKUPS
@@ -109,15 +112,12 @@ set nohlsearch
 set dict+=~/.vim/dict/cf.dict
 set complete-=k complete+=k
 
-" RAG TAG
+" RAGTAG
 
 let g:ragtag_global_maps = 1
 
-" FILE FINDER
+" NERDTREE
 
-let g:fuzzy_matching_limit=5
-let g:fuzzy_ceiling=2000
-let g:fuzzy_ignore="vendor/*;*.jpg;*.gif;.git/*"
 let g:NERDTreeChDirMode=2
 
 " SESSION MANAGER
