@@ -39,6 +39,8 @@ inoremap <C-CR> <CR><CR><Up><Tab>
 nnoremap <C-e> <C-q>
 nnoremap <S-Left> <C-W>h
 nnoremap <S-Right> <C-W>l
+nnoremap <S-Up> <C-W>k
+nnoremap <S-Down> <C-W>j
 nnoremap <M-z> :NERDTree %:p:h<CR>
 nnoremap K Jx
 
