@@ -20,7 +20,8 @@ noremap <C-b> :CommandTBuffer<CR>
 nnoremap <C-x> :BufOnly<CR>
 noremap <C-z> :NERDTreeToggle<CR>
 inoremap <C-z> <Esc>dbxi
-inoremap <, </<C-X><C-O><Esc>v<<
+inoremap <lt>/ </<C-X><C-O>
+inoremap <lt>, </<C-X><C-O><Esc>v<<<Esc>o
 vnoremap <C-c> "+y
 vnoremap <C-b> :s/^/# <CR>
 vnoremap <C-d> :s/^# //<CR>
@@ -62,6 +63,9 @@ set nowrap
 syntax on
 filetype plugin on
 au BufNewFile,BufRead *.ru set filetype=ruby
+autocmd FileType cf set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType html set omnifunc=xmlcomplete#CompleteTags
 
 " THEME
 
@@ -80,13 +84,14 @@ set directory=~/.vim/tmp
 
 " INDENTING
 
-set smartindent
+" set smartindent
 set softtabstop=2
 set shiftwidth=2
 set tabstop=2
 set expandtab
 set bs=2
 set backspace=indent,eol,start
+filetype indent on
 
 " SEARCHING
 
