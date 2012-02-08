@@ -44,6 +44,7 @@ nnoremap <S-Up> <C-W>k
 nnoremap <S-Down> <C-W>j
 nnoremap <M-z> :NERDTree %:p:h<CR>
 nnoremap K Jx
+inoremap jj <Esc>
 
 " GENERAL SETTINGS
 
