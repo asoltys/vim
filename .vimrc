@@ -52,6 +52,9 @@ nnoremap K Jx
 inoremap jj <Esc>
 noremap qp mqGo<Esc>"qp
 noremap qd G"qdd`q
+inoremap II <Esc>I
+inoremap AA <Esc>A
+inoremap OO <Esc>O
 
 " GENERAL SETTINGS
 
