@@ -2,6 +2,9 @@
 call pathogen#infect()
 call pathogen#helptags()
 
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+
 let mapleader = ","
 map ,cd :cd %:p:h<CR>
 map ,f :let g:fuzzy_roots=[getcwd()]<CR>:ruby @finder=nil<CR>
@@ -47,6 +50,8 @@ nnoremap <S-Down> <C-W>j
 nnoremap <M-z> :NERDTree %:p:h<CR>
 nnoremap K Jx
 inoremap jj <Esc>
+noremap qp mqGo<Esc>"qp
+noremap qd G"qdd`q
 
 " GENERAL SETTINGS
 
@@ -357,3 +362,26 @@ function! SmallerFont()
   call AdjustFontSize(-1)
 endfunction
 command! SmallerFont call SmallerFont()
+
+function! QFDo(bang, command) 
+  let qflist={} 
+  if a:bang 
+     let tlist=map(getloclist(0), 'get(v:val, ''bufnr'')') 
+  else 
+     let tlist=map(getqflist(), 'get(v:val, ''bufnr'')') 
+  endif 
+  if empty(tlist) 
+    echomsg "Empty Quickfixlist. Aborting" 
+    return 
+  endif 
+  for nr in tlist 
+  let item=fnameescape(bufname(nr)) 
+  if !get(qflist, item,0) 
+     let qflist[item]=1 
+  endif 
+  endfor 
+  :exe 'argl ' .join(keys(qflist)) 
+  :exe 'argdo ' . a:command 
+endfunc 
+
+command! -nargs=1 -bang Qfdo :call QFDo(<bang>0,<q-args>) 
