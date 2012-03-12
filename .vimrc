@@ -6,6 +6,7 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 
 let mapleader = ","
+map <Leader>rt :!ctags --extra=+f --exclude=.git --exclude=log -R * `rvm gemdir`/gems/*<CR><CR>
 map ,cd :cd %:p:h<CR>
 map ,f :let g:fuzzy_roots=[getcwd()]<CR>:ruby @finder=nil<CR>
 nmap <silent> <leader>s :set nolist!<CR>
