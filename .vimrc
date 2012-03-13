@@ -27,7 +27,7 @@ nnoremap <C-x> :BufOnly<CR>
 noremap <C-z> :NERDTreeToggle<CR>
 inoremap <C-z> <Esc>dbxi
 inoremap <lt>/ </<C-X><C-O>
-inoremap <lt>, </<C-X><C-O><Esc>v<<<Esc>o
+inoremap <lt>, </<C-X><C-O><Esc>v<<
 vnoremap <C-c> "+y
 vnoremap <C-b> :s/^/# <CR>
 vnoremap <C-d> :s/^# //<CR>
@@ -70,7 +70,7 @@ set statusline+=\ %{getline('.')[col('.')-1]},\ %b,\ 0x%B
 set number
 set hidden
 set history=1000
-set nowrap
+set wrap
 
 syntax on
 filetype plugin on
