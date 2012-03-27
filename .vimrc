@@ -1,4 +1,4 @@
-" CUSTOM MAPPINGS
+set shell=/bin/bash\ -i
 call pathogen#infect()
 call pathogen#helptags()
 
