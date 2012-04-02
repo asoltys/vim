@@ -1,2 +1,2 @@
-set foldmethod=syntax
-set foldlevelstart=10
+" set foldmethod=syntax
+" set foldlevelstart=10

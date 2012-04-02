@@ -53,6 +53,10 @@ noremap qd G"qdd`q
 inoremap II <Esc>I
 inoremap AA <Esc>A
 inoremap OO <Esc>O
+nnoremap H <C-W>h
+nnoremap L <C-W>l
+nnoremap > >>
+nnoremap < <<
 
 " GENERAL SETTINGS
 
@@ -84,7 +88,11 @@ autocmd FileType ruby set omnifunc=rubycomplete#CompleteTags
 set t_Co=256
 set background=light
 set guifont=DejaVu\ Sans\ Mono\ 12
-colorscheme solarized
+if has('gui_running')
+  colorscheme solarized
+else
+  colorscheme ir_black
+endif
 
 " BACKUPS
 
