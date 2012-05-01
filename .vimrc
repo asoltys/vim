@@ -7,10 +7,9 @@ map <Leader>rt :!ctags --extra=+f --exclude=.git --exclude=log -R * `rvm gemdir`
 map ,cd :cd %:p:h<CR>
 map ,f :let g:fuzzy_roots=[getcwd()]<CR>:ruby @finder=nil<CR>
 nmap <silent> <leader>s :set nolist!<CR>
-nmap <C-q> :bn <bar> bw #<CR>
-imap <C-q> <Esc>:wq<CR>
-nmap <C-s> :w!<CR>
-imap <C-s> <Esc>:w!<CR>
+nnoremap <C-q> :bn <bar> bw #<CR>
+nnoremap <C-s> :w!<CR>
+inoremap <C-s> <Esc>:w!<CR>
 noremap <C-e><C-v> :e ~/.vimrc<CR>
 nnoremap <C-l> :so ~/.vimrc<CR>
 noremap <C-y> <C-r>
@@ -345,8 +344,14 @@ function! HtmlEscapeNum()
   silent s/ý/\&#253;/eg
 endfunction
 
+function! NbspReplace()
+  silent s/\(\d\) /\1\&nbsp;/eg
+  silent s/ \(\d\)/\&nbsp;\1/eg
+  silent s/ :/\&nbsp;:/eg
+endfunction
+
 vmap <silent> <c-h> :call HtmlEscape()<CR>
-vmap <silent> <c-h> :call HtmlEscapeNum()<CR>
+vmap <silent> <c-n> :call NbspReplace()<CR>
 
 let s:pattern = '^\(.* \)\([1-9][0-9]*\)$'
 let s:minfontsize = 6
