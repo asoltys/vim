@@ -74,9 +74,12 @@ set wrap
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 
+set wildignore+=*.o,*.obj,.git,node_modules
+
 syntax on
 filetype plugin on
 au BufNewFile,BufRead *.ru set filetype=ruby
+au BufNewFile,BufRead *.json set filetype=php
 autocmd FileType cf set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
