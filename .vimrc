@@ -16,9 +16,9 @@ noremap <C-y> <C-r>
 noremap <C-n> :bnext<CR>
 noremap <C-p> :bprev<CR>
 noremap <C-g> :Ack<space>
-noremap <C-f> :CommandT<CR>
-noremap <C-b> :CommandTBuffer<CR>
-nnoremap Q :CommandTJump<CR>
+noremap <C-f> :CtrlP<CR>
+noremap <C-b> :CtrlPBuffer<CR>
+nnoremap Q :CtrlPMRU<CR>
 nnoremap <C-x> :BufOnly<CR>
 noremap <C-z> :NERDTreeToggle<CR>
 inoremap <C-z> <Esc>dbxi
@@ -132,11 +132,6 @@ set nohlsearch
 " inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 " inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
-
-" COLDFUSION AUTOCOMPLETION
-
-set dict+=~/.vim/dict/cf.dict
-set complete-=k complete+=k
 
 " RAGTAG
 
