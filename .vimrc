@@ -7,55 +7,6 @@ map <Leader>rt :!ctags --extra=+f --exclude=.git --exclude=log -R * `rvm gemdir`
 map ,cd :cd %:p:h<CR>
 map ,f :let g:fuzzy_roots=[getcwd()]<CR>:ruby @finder=nil<CR>
 nmap <silent> <leader>s :set nolist!<CR>
-nnoremap <C-q> :bn <bar> bw #<CR>
-nnoremap <C-s> :w!<CR>
-inoremap <C-s> <Esc>:w!<CR>
-noremap <C-e><C-v> :e ~/.vimrc<CR>
-nnoremap <C-l> :so ~/.vimrc<CR>
-noremap <C-y> <C-r>
-noremap <C-n> :bnext<CR>
-noremap <C-p> :bprev<CR>
-noremap <C-g> :Ack<space>
-noremap <C-f> :CtrlP<CR>
-noremap <C-b> :CtrlPBuffer<CR>
-nnoremap Q :CtrlPMRU<CR>
-nnoremap <C-x> :BufOnly<CR>
-noremap <C-z> :NERDTreeToggle<CR>
-inoremap <C-z> <Esc>dbxi
-inoremap <lt>/ </<C-X><C-O>
-inoremap <lt>, </<C-X><C-O><Esc>v<<
-vnoremap <C-c> "+y
-vnoremap <C-b> :s/^/# <CR>
-vnoremap <C-d> :s/^# //<CR>
-nnoremap <C-m> <C-v>
-noremap <C-v> "+p
-inoremap <C-v> <Esc>"+pa
-nnoremap <C-h> :vert bel help<Space>
-nnoremap ' `
-nnoremap ` '
-inoremap <M-o> <Esc>o
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-nnoremap <C-CR> i<CR><Esc>
-inoremap <C-CR> <CR><CR><Up><Tab>
-" nnoremap <C-a> ggvG$
-nnoremap <C-e> <C-q>
-nnoremap <S-Left> <C-W>h
-nnoremap <S-Right> <C-W>l
-nnoremap <S-Up> <C-W>k
-nnoremap <S-Down> <C-W>j
-nnoremap <M-z> :NERDTree %:p:h<CR>
-nnoremap K Jx
-inoremap jj <Esc>
-noremap qp mqGo<Esc>"qp
-noremap qd G"qdd`q
-inoremap II <Esc>I
-inoremap AA <Esc>A
-inoremap OO <Esc>O
-nnoremap H <C-W>h
-nnoremap L <C-W>l
-nnoremap > >>
-nnoremap < <<
 
 " GENERAL SETTINGS
 
@@ -80,15 +31,21 @@ syntax on
 filetype plugin on
 au BufNewFile,BufRead *.ru set filetype=ruby
 au BufNewFile,BufRead *.json set filetype=php
+au BufNewFile,BufRead *.hbs set filetype=html
+au BufNewFile,BufRead *.vue set filetype=html
 autocmd FileType cf set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType ruby set omnifunc=rubycomplete#CompleteTags
 
 " THEME
+"
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
 
 set t_Co=256
-set background=light
 set guifont=DejaVu\ Sans\ Mono\ 12
 if has('gui_running')
   colorscheme base16-default-dark
@@ -440,3 +397,5 @@ endfunction
 
 " Start the find and replace command across the entire file
 vmap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>/
+runtime macros/matchit.vim
+packadd! matchit

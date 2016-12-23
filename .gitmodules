@@ -22,3 +22,9 @@
 [submodule "bundle/vim-csharp"]
 	path = bundle/vim-csharp
 	url = https://github.com/OrangeT/vim-csharp.git
+[submodule "bundle/vim-vue"]
+	path = bundle/vim-vue
+	url = https://github.com/posva/vim-vue
+[submodule "bundle/html5.vim"]
+	path = bundle/html5.vim
+	url = https://github.com/othree/html5.vim
