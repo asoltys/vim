@@ -28,7 +28,7 @@ set guioptions-=T  "remove toolbar
 set wildignore+=*.o,*.obj,.git,node_modules
 
 syntax on
-filetype plugin on
+
 au BufNewFile,BufRead *.ru set filetype=ruby
 au BufNewFile,BufRead *.json set filetype=php
 au BufNewFile,BufRead *.hbs set filetype=html
@@ -37,6 +37,7 @@ autocmd FileType cf set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType ruby set omnifunc=rubycomplete#CompleteTags
+let g:html_indent_inctags="html,head,body,li,p"
 
 " THEME
 "
@@ -63,14 +64,14 @@ set directory=~/.vim/tmp
 
 " INDENTING
 
-" set smartindent
+set smartindent
 set softtabstop=2
 set shiftwidth=2
 set tabstop=2
 set expandtab
 set bs=2
 set backspace=indent,eol,start
-filetype indent on
+filetype indent plugin on
 
 " SEARCHING
 

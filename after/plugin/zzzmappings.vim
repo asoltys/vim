@@ -44,3 +44,4 @@ nnoremap H <C-W>h
 nnoremap L <C-W>l
 nnoremap > >>
 nnoremap < <<
+nnoremap gp `[v`]
