@@ -34,3 +34,6 @@
 [submodule "bundle/xml.vim"]
 	path = bundle/xml.vim
 	url = https://github.com/othree/xml.vim
+[submodule "bundle/vim-pug"]
+	path = bundle/vim-pug
+	url = https://github.com/digitaltoad/vim-pug
