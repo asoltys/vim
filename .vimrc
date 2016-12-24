@@ -10,6 +10,7 @@ nmap <silent> <leader>s :set nolist!<CR>
 
 " GENERAL SETTINGS
 
+set encoding=utf8
 set nocp
 set ruler
 set listchars=tab:>-,trail:·,eol:$
