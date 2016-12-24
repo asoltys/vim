@@ -32,7 +32,7 @@ syntax on
 au BufNewFile,BufRead *.ru set filetype=ruby
 au BufNewFile,BufRead *.json set filetype=php
 au BufNewFile,BufRead *.hbs set filetype=html
-au BufNewFile,BufRead *.vue set filetype=html
+au BufNewFile,BufRead *.vue set filetype=vue
 autocmd FileType cf set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
