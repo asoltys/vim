@@ -86,6 +86,9 @@ autocmd FileType cf set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType ruby set omnifunc=rubycomplete#CompleteTags
+autocmd FileType vue setlocal foldmethod=syntax
+autocmd FileType vue setlocal foldlevel=2
+let g:html_indent_inctags="html,head,body,li,p"
 
 " THEME
 "
