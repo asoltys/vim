@@ -28,12 +28,6 @@
 [submodule "bundle/html5.vim"]
 	path = bundle/html5.vim
 	url = https://github.com/othree/html5.vim
-[submodule "bundle/vim-closetag"]
-	path = bundle/vim-closetag
-	url = https://github.com/alvan/vim-closetag
-[submodule "bundle/xml.vim"]
-	path = bundle/xml.vim
-	url = https://github.com/othree/xml.vim
 [submodule "bundle/vim-pug"]
 	path = bundle/vim-pug
 	url = https://github.com/digitaltoad/vim-pug
@@ -55,3 +49,6 @@
 [submodule "bundle/splitjoin.vim"]
 	path = bundle/splitjoin.vim
 	url = https://github.com/AndrewRadev/splitjoin.vim
+[submodule "bundle/vim-indent-guides"]
+	path = bundle/vim-indent-guides
+	url = git://github.com/nathanaelkane/vim-indent-guides.git

@@ -90,6 +90,8 @@ autocmd FileType vue setlocal foldmethod=syntax
 autocmd FileType vue setlocal foldlevel=2
 let g:html_indent_inctags="html,head,body,li,p"
 
+let g:html_indent_inctags="html,head,body,li,p,header,footer,a,span"
+
 " THEME
 "
 if filereadable(expand("~/.vimrc_background"))
