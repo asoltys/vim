@@ -12,7 +12,6 @@ nnoremap <C-s> :w!<CR>
 inoremap <C-s> <Esc>:w!<CR>
 noremap <C-e><C-v> :e ~/.vimrc<CR>
 nnoremap <C-l> :so ~/.vimrc<CR>
-noremap <C-y> <C-r>
 noremap <C-n> :bnext<CR>
 noremap <C-g> :Ack<space>
 noremap <C-f> :CtrlP<CR>
@@ -50,11 +49,27 @@ nnoremap K Jx
 inoremap jj <Esc>
 noremap qp mqGo<Esc>"qp
 noremap qd G"qdd`q
-nnoremap H <C-W>h
-nnoremap L <C-W>l
 nnoremap > >>
 nnoremap < <<
 nnoremap gp `[v`]
+
+" map a motion and its reverse motion:
+noremap <expr> h repmo#Key('h', 'l')|sunmap h
+noremap <expr> l repmo#Key('l', 'h')|sunmap l
+
+" if you like `:noremap j gj', you can keep that:
+noremap <expr> j repmo#Key('gj', 'gk')|sunmap j
+noremap <expr> k repmo#Key('gk', 'gj')|sunmap k
+
+" repeat the last [count]motion or the last zap-key:
+noremap <expr> ; repmo#LastKey(';')|sunmap ;
+noremap <expr> , repmo#LastRevKey(',')|sunmap ,
+
+" add these mappings when repeating with `;' or `,':
+noremap <expr> f repmo#ZapKey('f')|sunmap f
+noremap <expr> F repmo#ZapKey('F')|sunmap F
+noremap <expr> t repmo#ZapKey('t')|sunmap t
+noremap <expr> T repmo#ZapKey('T')|sunmap T
 
 " GENERAL SETTINGS
 
