@@ -70,11 +70,12 @@ set number
 set hidden
 set history=1000
 set wrap
+set tags=tags;/
 
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 
-set wildignore+=*.o,*.obj,.git,node_modules
+set wildignore+=*.o,*.obj,.git,node_modules,tags
 
 syntax on
 
