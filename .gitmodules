@@ -58,3 +58,6 @@
 [submodule "bundle/vim-repmo"]
 	path = bundle/vim-repmo
 	url = https://github.com/Houl/vim-repmo
+[submodule "bundle/vim-fanfingtastic"]
+	path = bundle/vim-fanfingtastic
+	url = https://github.com/dahu/vim-fanfingtastic
