@@ -2,7 +2,7 @@ set shell=/bin/bash\ -i
 call pathogen#infect()
 call pathogen#helptags()
 
-let mapleader = ","
+nmap gi <Plug>IndentGuidesToggle
 map <Leader>rt :!ctags --extra=+f --exclude=.git --exclude=log -R * `rvm gemdir`/gems/*<CR><CR>
 map ,cd :cd %:p:h<CR>
 nmap <silent> <leader>s :set nolist!<CR>
@@ -35,8 +35,8 @@ inoremap <M-o> <Esc>o
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 nnoremap <C-CR> :SplitjoinSplit<CR>
-nnoremap sj :SplitjoinSplit<CR>
-nnoremap sk :SplitjoinJoin<CR>
+nnoremap <Leader>j :SplitjoinSplit<CR>
+nnoremap <Leader>k :SplitjoinJoin<CR>
 inoremap <C-CR> <C-o>:SplitjoinSplit<CR><C-o>j<C-o>A
 nnoremap <C-a> ggvG$
 nnoremap <C-e> <C-q>
@@ -52,24 +52,25 @@ noremap qd G"qdd`q
 nnoremap > >>
 nnoremap < <<
 nnoremap gp `[v`]
+nnoremap <C-a> ggVG
 
 " map a motion and its reverse motion:
-noremap <expr> h repmo#Key('h', 'l')|sunmap h
-noremap <expr> l repmo#Key('l', 'h')|sunmap l
+:noremap <expr> h repmo#Key('h', 'l')|sunmap h
+:noremap <expr> l repmo#Key('l', 'h')|sunmap l
 
 " if you like `:noremap j gj', you can keep that:
-noremap <expr> j repmo#Key('gj', 'gk')|sunmap j
-noremap <expr> k repmo#Key('gk', 'gj')|sunmap k
+:noremap <expr> j repmo#Key('gj', 'gk')|sunmap j
+:noremap <expr> k repmo#Key('gk', 'gj')|sunmap k
 
 " repeat the last [count]motion or the last zap-key:
-noremap <expr> ; repmo#LastKey(';')|sunmap ;
-noremap <expr> , repmo#LastRevKey(',')|sunmap ,
+:noremap <expr> ; repmo#LastKey(';')|sunmap ;
+:noremap <expr> , repmo#LastRevKey(',')|sunmap ,
 
 " add these mappings when repeating with `;' or `,':
-noremap <expr> f repmo#ZapKey('f')|sunmap f
-noremap <expr> F repmo#ZapKey('F')|sunmap F
-noremap <expr> t repmo#ZapKey('t')|sunmap t
-noremap <expr> T repmo#ZapKey('T')|sunmap T
+:noremap <expr> f repmo#ZapKey('f')|sunmap f
+:noremap <expr> F repmo#ZapKey('F')|sunmap F
+:noremap <expr> t repmo#ZapKey('t')|sunmap t
+:noremap <expr> T repmo#ZapKey('T')|sunmap T
 
 " GENERAL SETTINGS
 
@@ -94,6 +95,7 @@ set wildignore+=*.o,*.obj,.git,node_modules,tags
 
 syntax on
 
+" FILETYPES
 au BufNewFile,BufRead *.ru set filetype=ruby
 au BufNewFile,BufRead *.json set filetype=php
 au BufNewFile,BufRead *.hbs set filetype=html
@@ -104,9 +106,7 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType ruby set omnifunc=rubycomplete#CompleteTags
 autocmd FileType vue setlocal foldmethod=syntax
 autocmd FileType vue setlocal foldlevel=2
-let g:html_indent_inctags="html,head,body,li,p"
-
-let g:html_indent_inctags="html,head,body,li,p,header,footer,a,span"
+let g:html_indent_inctags="html,head,body,li,p,header,footer,a,span,nav"
 
 " THEME
 "
@@ -156,6 +156,10 @@ set nohlsearch
 " inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 " inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
 
+" OMNISHARP
+
+let g:OmniSharp_server_type = 'v1'
+
 " RAGTAG
 
 let g:ragtag_global_maps = 1
@@ -169,14 +173,15 @@ let g:NERDTreeChDirMode=2
 let g:session_autoload=1
 let g:session_autosave=1
 
-" SINGLE CHARACTER INSERTION
+" SYNTASTIC
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-function! RepeatChar(char, count)
- return repeat(a:char, a:count)
-endfunction
-
-nnoremap s :<C-U>exec "normal i".RepeatChar(nr2char(getchar()), v:count1)<CR>
-nnoremap S :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " GIST
 let g:gist_detect_filetype = 1

@@ -61,3 +61,15 @@
 [submodule "bundle/vim-fanfingtastic"]
 	path = bundle/vim-fanfingtastic
 	url = https://github.com/dahu/vim-fanfingtastic
+[submodule "bundle/omnisharp-vim"]
+	path = bundle/omnisharp-vim
+	url = https://github.com/OmniSharp/omnisharp-vim.git
+[submodule "bundle/vim-dispatch"]
+	path = bundle/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch.git
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = https://github.com/vim-syntastic/syntastic.git
+[submodule "/home/adam/.vim/bundle/vimproc.vim"]
+	path = /home/adam/.vim/bundle/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim.git
