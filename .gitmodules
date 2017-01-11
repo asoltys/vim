@@ -52,9 +52,6 @@
 [submodule "bundle/vim-indent-guides"]
 	path = bundle/vim-indent-guides
 	url = git://github.com/nathanaelkane/vim-indent-guides.git
-[submodule "bundle/vim-sneak"]
-	path = bundle/vim-sneak
-	url = https://github.com/justinmk/vim-sneak
 [submodule "bundle/vim-repmo"]
 	path = bundle/vim-repmo
 	url = https://github.com/Houl/vim-repmo
@@ -64,9 +61,6 @@
 [submodule "bundle/omnisharp-vim"]
 	path = bundle/omnisharp-vim
 	url = https://github.com/OmniSharp/omnisharp-vim.git
-[submodule "bundle/vim-dispatch"]
-	path = bundle/vim-dispatch
-	url = https://github.com/tpope/vim-dispatch.git
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
