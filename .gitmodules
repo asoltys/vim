@@ -67,3 +67,6 @@
 [submodule "/home/adam/.vim/bundle/vimproc.vim"]
 	path = /home/adam/.vim/bundle/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim.git
+[submodule "/home/adam/.vim/bundle/Vundle.vim"]
+	path = /home/adam/.vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim.git

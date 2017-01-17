@@ -2,8 +2,20 @@ set shell=/bin/bash\ -i
 call pathogen#infect()
 call pathogen#helptags()
 
+set nocompatible              " be iMproved, required
+filetype off                  " required
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'mileszs/ack.vim'
+call vundle#end()   
+filetype plugin indent on 
+
 nmap gi <Plug>IndentGuidesToggle
-map <Leader>rt :!ctags --extra=+f --exclude=.git --exclude=log -R * `rvm gemdir`/gems/*<CR><CR>
+map <Leader>rt :!ctags --extra=+f --exclude=.git --exclude=log -R *<CR><CR>
 map ,cd :cd %:p:h<CR>
 nmap <silent> <leader>s :set nolist!<CR>
 
@@ -46,7 +58,6 @@ nnoremap <S-Up> <C-W>k
 nnoremap <S-Down> <C-W>j
 nnoremap <M-z> :NERDTree %:p:h<CR>
 nnoremap K Jx
-inoremap jj <Esc>
 noremap qp mqGo<Esc>"qp
 noremap qd G"qdd`q
 nnoremap > >>
@@ -54,23 +65,26 @@ nnoremap < <<
 nnoremap gp `[v`]
 nnoremap <C-a> ggVG
 
+inoremap <expr> j pumvisible() ? '<C-n>' : 'j'
+inoremap <expr> k pumvisible() ? '<C-p>' : 'k'
+
 " map a motion and its reverse motion:
-:noremap <expr> h repmo#Key('h', 'l')|sunmap h
-:noremap <expr> l repmo#Key('l', 'h')|sunmap l
+noremap <expr> h repmo#Key('h', 'l')|sunmap h
+noremap <expr> l repmo#Key('l', 'h')|sunmap l
 
 " if you like `:noremap j gj', you can keep that:
-:noremap <expr> j repmo#Key('gj', 'gk')|sunmap j
-:noremap <expr> k repmo#Key('gk', 'gj')|sunmap k
+noremap <expr> j repmo#Key('gj', 'gk')|sunmap j
+noremap <expr> k repmo#Key('gk', 'gj')|sunmap k
 
 " repeat the last [count]motion or the last zap-key:
-:noremap <expr> ; repmo#LastKey(';')|sunmap ;
-:noremap <expr> , repmo#LastRevKey(',')|sunmap ,
+noremap <expr> ; repmo#LastKey(';')|sunmap ;
+noremap <expr> , repmo#LastRevKey(',')|sunmap ,
 
 " add these mappings when repeating with `;' or `,':
-:noremap <expr> f repmo#ZapKey('f')|sunmap f
-:noremap <expr> F repmo#ZapKey('F')|sunmap F
-:noremap <expr> t repmo#ZapKey('t')|sunmap t
-:noremap <expr> T repmo#ZapKey('T')|sunmap T
+noremap <expr> f repmo#ZapKey('f')|sunmap f
+noremap <expr> F repmo#ZapKey('F')|sunmap F
+noremap <expr> t repmo#ZapKey('t')|sunmap t
+noremap <expr> T repmo#ZapKey('T')|sunmap T
 
 " GENERAL SETTINGS
 
@@ -94,6 +108,7 @@ set guioptions-=T  "remove toolbar
 set wildignore+=*.o,*.obj,.git,node_modules,tags
 
 syntax on
+syntax sync fromstart
 
 " FILETYPES
 au BufNewFile,BufRead *.ru set filetype=ruby
@@ -136,7 +151,6 @@ set tabstop=2
 set expandtab
 set bs=2
 set backspace=indent,eol,start
-filetype indent plugin on
 
 " SEARCHING
 
@@ -156,9 +170,123 @@ set nohlsearch
 " inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 " inoremap <expr> <C-p> pumvisible() ? '<C-p>' : '<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
 
+" ULTISNIP
+
+let g:UltiSnipsExpandTrigger="<c-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
 " OMNISHARP
 
 let g:OmniSharp_server_type = 'v1'
+"
+"Timeout in seconds to wait for a response from the server
+let g:OmniSharp_timeout = 1
+
+"Showmatch significantly slows down omnicomplete
+"when the first match contains parentheses.
+set noshowmatch
+
+"Super tab settings - uncomment the next 4 lines
+"let g:SuperTabDefaultCompletionType = 'context'
+"let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+"let g:SuperTabDefaultCompletionTypeDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-n>"]
+"let g:SuperTabClosePreviewOnPopupClose = 1
+
+"don't autoselect first item in omnicomplete, show if only one item (for preview)
+"remove preview if you don't want to see any documentation whatsoever.
+set completeopt=longest,menuone,preview
+" Fetch full documentation during omnicomplete requests.
+" There is a performance penalty with this (especially on Mono)
+" By default, only Type/Method signatures are fetched. Full documentation can still be fetched when
+" you need it with the :OmniSharpDocumentation command.
+" let g:omnicomplete_fetch_documentation=1
+
+"Move the preview window (code documentation) to the bottom of the screen, so it doesn't move the code!
+"You might also want to look at the echodoc plugin
+set splitbelow
+
+" Get Code Issues and syntax errors
+let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
+" If you are using the omnisharp-roslyn backend, use the following
+" let g:syntastic_cs_checkers = ['code_checker']
+augroup omnisharp_commands
+    autocmd!
+
+    "Set autocomplete function to OmniSharp (if not using YouCompleteMe completion plugin)
+    autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+
+    " Synchronous build (blocks Vim)
+    "autocmd FileType cs nnoremap <F5> :wa!<cr>:OmniSharpBuild<cr>
+    " Builds can also run asynchronously with vim-dispatch installed
+    autocmd FileType cs nnoremap <leader>b :wa!<cr>:OmniSharpBuildAsync<cr>
+    " automatic syntax check on events (TextChanged requires Vim 7.4)
+    autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+
+    " Automatically add new cs files to the nearest project on save
+    autocmd BufWritePost *.cs call OmniSharp#AddToProject()
+
+    "show type information automatically when the cursor stops moving
+    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+
+    "The following commands are contextual, based on the current cursor position.
+
+    autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
+    autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
+    autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
+    autocmd FileType cs nnoremap <leader>fs :OmniSharpFindSymbol<cr>
+    autocmd FileType cs nnoremap <leader>fu :OmniSharpFindUsages<cr>
+    "finds members in the current buffer
+    autocmd FileType cs nnoremap <leader>fm :OmniSharpFindMembers<cr>
+    " cursor can be anywhere on the line containing an issue
+    autocmd FileType cs nnoremap <leader>x  :OmniSharpFixIssue<cr>
+    autocmd FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
+    autocmd FileType cs nnoremap <leader>tt :OmniSharpTypeLookup<cr>
+    autocmd FileType cs nnoremap <leader>dc :OmniSharpDocumentation<cr>
+    "navigate up by method/property/field
+    autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
+    "navigate down by method/property/field
+    autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
+
+augroup END
+
+
+" this setting controls how long to wait (in ms) before fetching type / symbol information.
+set updatetime=500
+" Remove 'Press Enter to continue' message when type information is longer than one line.
+set cmdheight=2
+
+" Contextual code actions (requires CtrlP or unite.vim)
+nnoremap <leader><space> :OmniSharpGetCodeActions<cr>
+" Run code actions with text selected in visual mode to extract method
+vnoremap <leader><space> :call OmniSharp#GetCodeActions('visual')<cr>
+
+" rename with dialog
+nnoremap <leader>nm :OmniSharpRename<cr>
+nnoremap <F2> :OmniSharpRename<cr>
+" rename without dialog - with cursor on the symbol to rename... ':Rename newname'
+command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+
+" Force OmniSharp to reload the solution. Useful when switching branches etc.
+nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+" Load the current .cs file to the nearest project
+nnoremap <leader>tp :OmniSharpAddToProject<cr>
+
+" (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
+nnoremap <leader>ss :OmniSharpStartServer<cr>
+nnoremap <leader>sp :OmniSharpStopServer<cr>
+
+" Add syntax highlighting for types and interfaces
+nnoremap <leader>th :OmniSharpHighlightTypes<cr>
+"Don't ask to save when changing buffers (i.e. when jumping to a type definition)
+set hidden
+
+" Enable snippet completion, requires completeopt-=preview
+let g:OmniSharp_want_snippet=1
 
 " RAGTAG
 
@@ -470,3 +598,8 @@ endfunction
 vmap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>/
 runtime macros/matchit.vim
 packadd! matchit
+
+" Use ag the silver searcher if available instead of ack
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
