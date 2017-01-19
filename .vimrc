@@ -6,6 +6,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
@@ -20,7 +21,7 @@ Plugin 'chriskempson/base16-vim.git'
 Plugin 'OrangeT/vim-csharp.git'
 Plugin 'posva/vim-vue'
 Plugin 'othree/html5.vim'
-Plugin 'digitaltoad/vim-pug'
+Plugin 'asoltys/vim-pug'
 Plugin 'wavded/vim-stylus'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ryanoasis/vim-devicons'
@@ -37,7 +38,7 @@ map ,cd :cd %:p:h<CR>
 nmap <silent> <leader>s :set nolist!<CR>
 
 nnoremap <C-q> :bn <bar> bw #<CR>
-nnoremap <C-s> :w!<CR>
+nnoremap <C-s> :w! <bar> syntax sync fromstart<CR>
 inoremap <C-s> <Esc>:w!<CR>
 noremap <C-e><C-v> :e ~/.vimrc<CR>
 nnoremap <C-l> :so ~/.vimrc<CR>
@@ -53,7 +54,6 @@ inoremap <lt>/ </<C-X><C-O>
 inoremap <lt>, </<C-X><C-O><Esc>v<<
 vnoremap <C-c> "+y
 vnoremap <C-b> :s/^/# <CR>
-vnoremap <C-d> :s/^# //<CR>
 nnoremap <C-m> <C-v>
 noremap <C-v> "+p
 inoremap <C-v> <Esc>"+pa
@@ -63,7 +63,7 @@ nnoremap ` '
 inoremap <M-o> <Esc>o
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
-nnoremap <C-CR> :SplitjoinSplit<CR>
+nnoremap <C-CR> o<Esc>
 nnoremap <Leader>j :SplitjoinSplit<CR>
 nnoremap <Leader>k :SplitjoinJoin<CR>
 inoremap <C-CR> <C-o>:SplitjoinSplit<CR><C-o>j<C-o>A
@@ -79,8 +79,8 @@ noremap qp mqGo<Esc>"qp
 noremap qd G"qdd`q
 nnoremap > >>
 nnoremap < <<
-nnoremap gp `[v`]
 nnoremap <C-a> ggVG
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " GENERAL SETTINGS
 
@@ -104,13 +104,13 @@ set guioptions-=T  "remove toolbar
 set wildignore+=*.o,*.obj,.git,node_modules,tags
 
 syntax on
-syntax sync fromstart
+
 
 " FILETYPES
 au BufNewFile,BufRead *.ru set filetype=ruby
 au BufNewFile,BufRead *.json set filetype=php
 au BufNewFile,BufRead *.hbs set filetype=html
-au BufNewFile,BufRead *.vue set filetype=vue
+au BufNewFile,BufRead *.vue set filetype=vue | syntax sync fromstart
 autocmd FileType cf set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
