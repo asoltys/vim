@@ -5,6 +5,7 @@ call pathogen#helptags()
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.fzf
 call vundle#begin()
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'VundleVim/Vundle.vim'
@@ -29,6 +30,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'StanAngeloff/php.vim.git'
 Plugin 'nathanaelkane/vim-indent-guides.git'
 Plugin 'Shougo/vimproc.vim.git'
+Plugin 'AndrewRadev/splitjoin.vim'
 call vundle#end()   
 filetype plugin indent on 
 
@@ -81,6 +83,7 @@ nnoremap > >>
 nnoremap < <<
 nnoremap <C-a> ggVG
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+inoremap ZZ <Esc>ZZ
 
 " GENERAL SETTINGS
 
@@ -127,7 +130,8 @@ if filereadable(expand("~/.vimrc_background"))
 endif
 
 set t_Co=256
-set guifont=DejaVu\ Sans\ Mono\ 12
+set guifont=DejaVu\ Sans\ Mono\ 14
+set linespace=5
 colorscheme base16-default-dark
 
 " BACKUPS
@@ -396,6 +400,6 @@ runtime macros/matchit.vim
 packadd! matchit
 
 " Use ag the silver searcher if available instead of ack
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+if executable('pt')
+  let g:ackprg = 'pt'
 endif
