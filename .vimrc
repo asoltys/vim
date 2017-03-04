@@ -1,7 +1,4 @@
-set shell=/bin/bash\ -i
-call pathogen#infect()
-call pathogen#helptags()
-
+set shell=/bin/bashschickling/vim-bufonly'
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -31,6 +28,12 @@ Plugin 'StanAngeloff/php.vim.git'
 Plugin 'nathanaelkane/vim-indent-guides.git'
 Plugin 'Shougo/vimproc.vim.git'
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'tmhedberg/matchit'
+Plugin 'schickling/vim-bufonly'
+Plugin 'tpope/vim-surround'
+Plugin 'ervandew/supertab'
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'xolox/vim-session'
 call vundle#end()   
 filetype plugin indent on 
 
@@ -396,8 +399,6 @@ endfunction
 
 " Start the find and replace command across the entire file
 vmap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>/
-runtime macros/matchit.vim
-packadd! matchit
 
 " Use ag the silver searcher if available instead of ack
 if executable('pt')
