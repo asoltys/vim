@@ -1,11 +1,12 @@
-set shell=/bin/bashschickling/vim-bufonly'
-set nocompatible              " be iMproved, required
-filetype off                  " required
-set rtp+=~/.vim/bundle/Vundle.vim
+set shell=/bin/bash
+set nocompatible
+filetype off
+
 set rtp+=~/.fzf
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -33,7 +34,6 @@ Plugin 'schickling/vim-bufonly'
 Plugin 'tpope/vim-surround'
 Plugin 'ervandew/supertab'
 Plugin 'vim-scripts/taglist.vim'
-Plugin 'xolox/vim-session'
 call vundle#end()   
 filetype plugin indent on 
 
