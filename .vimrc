@@ -7,17 +7,15 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
 Plugin 'mileszs/ack.vim'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'juvenn/mustache.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-rails'
 Plugin 'groenewege/vim-less'
 Plugin 'chriskempson/base16-vim.git'
 Plugin 'OrangeT/vim-csharp.git'
+"Plugin 'isRuslan/vim-es6'
+Plugin 'pangloss/vim-javascript'
 Plugin 'posva/vim-vue'
 Plugin 'othree/html5.vim'
 Plugin 'asoltys/vim-pug'
@@ -34,20 +32,32 @@ Plugin 'schickling/vim-bufonly'
 Plugin 'tpope/vim-surround'
 Plugin 'ervandew/supertab'
 Plugin 'vim-scripts/taglist.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'metakirby5/codi.vim'
+Plugin 'Raimondi/delimitMate'
+Plugin 'SirVer/ultisnips'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'ternjs/tern_for_vim'
+Plugin 'honza/vim-snippets'
+Plugin 'wincent/ferret'
+Plugin 'neomake/neomake'
 call vundle#end()   
 filetype plugin indent on 
 
 nmap gi <Plug>IndentGuidesToggle
-map <Leader>rt :!ctags --extra=+f --exclude=.git --exclude=log -R *<CR><CR>
-map ,cd :cd %:p:h<CR>
+map <Leader>rt :!git ctags<CR>
+map <Leader>cd :cd %:p:h<CR>
+map <Leader>date :echo system('date')<CR>
 nmap <silent> <leader>s :set nolist!<CR>
 
+noremap <Leader>v v^o$h
 nnoremap <C-q> :bn <bar> bw #<CR>
 nnoremap <C-s> :w! <bar> syntax sync fromstart<CR>
 inoremap <C-s> <Esc>:w!<CR>
 noremap <C-e><C-v> :e ~/.vimrc<CR>
 nnoremap <C-l> :so ~/.vimrc<CR>
 noremap <C-n> :bnext<CR>
+noremap <C-p> :bprev<CR>
 noremap <C-g> :Ack<space>
 noremap <C-f> :CtrlP<CR>
 noremap <C-b> :CtrlPBuffer<CR>
@@ -87,6 +97,9 @@ nnoremap < <<
 nnoremap <C-a> ggVG
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 inoremap ZZ <Esc>ZZ
+nmap <F8> :TagbarToggle<CR>
+nnoremap <Leader>n :lnext<CR>
+nnoremap <Leader>p :lprev<CR>
 
 " GENERAL SETTINGS
 
@@ -102,12 +115,12 @@ set number
 set hidden
 set history=1000
 set wrap
-set tags=tags;/
+set tags=./tags,./TAGS,tags;~,TAGS;~
 
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 
-set wildignore+=*.o,*.obj,.git,node_modules,tags
+set wildignore+=*.o,*.obj,.git,node_modules,tags,*.swp
 
 syntax on
 
@@ -116,13 +129,15 @@ syntax on
 au BufNewFile,BufRead *.ru set filetype=ruby
 au BufNewFile,BufRead *.json set filetype=php
 au BufNewFile,BufRead *.hbs set filetype=html
-au BufNewFile,BufRead *.vue set filetype=vue | syntax sync fromstart
-autocmd FileType cf set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType ruby set omnifunc=rubycomplete#CompleteTags
-autocmd FileType vue setlocal foldmethod=syntax
-autocmd FileType vue setlocal foldlevel=2
+au BufNewFile,BufRead *.vue set filetype=vue
+au BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+au FileType vue syntax sync fromstart
+au FileType cf set omnifunc=htmlcomplete#CompleteTags
+au FileType xml set omnifunc=xmlcomplete#CompleteTags
+au FileType html set omnifunc=htmlcomplete#CompleteTags
+au FileType ruby set omnifunc=rubycomplete#CompleteTags
+au FileType vue setlocal foldmethod=syntax
+au FileType vue setlocal foldlevel=2
 let g:html_indent_inctags="html,head,body,li,p,header,footer,a,span,nav"
 
 " THEME
@@ -133,7 +148,7 @@ if filereadable(expand("~/.vimrc_background"))
 endif
 
 set t_Co=256
-set guifont=DejaVu\ Sans\ Mono\ 14
+set guifont=DejaVu\ Sans\ Mono\ 8
 set linespace=5
 colorscheme base16-default-dark
 
@@ -401,6 +416,38 @@ endfunction
 vmap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>/
 
 " Use ag the silver searcher if available instead of ack
-if executable('pt')
-  let g:ackprg = 'pt'
+if executable('rg')
+  let g:ackprg = 'rg'
 endif
+
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
+
+let g:ctrlp_extensions = ['buffertag', 'dir']
+
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
+
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
+let delimitMate_jump_expansion = 1
+
+let g:indent_guides_enable_on_vim_startup = 1                                   
+let g:indent_guides_auto_colors = 1
+let g:indent_guides_guide_size = 1                                              
+
+let g:neomake_javascript_enabled_makers = ['eslint']
+autocmd! BufWritePost * Neomake
+
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+augroup AutoSaveFolds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent loadview
+augroup END
