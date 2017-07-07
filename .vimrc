@@ -41,6 +41,7 @@ Plugin 'ternjs/tern_for_vim'
 Plugin 'honza/vim-snippets'
 Plugin 'wincent/ferret'
 Plugin 'neomake/neomake'
+Plugin 'elzr/vim-json'
 call vundle#end()   
 filetype plugin indent on 
 
@@ -136,8 +137,6 @@ au FileType cf set omnifunc=htmlcomplete#CompleteTags
 au FileType xml set omnifunc=xmlcomplete#CompleteTags
 au FileType html set omnifunc=htmlcomplete#CompleteTags
 au FileType ruby set omnifunc=rubycomplete#CompleteTags
-au FileType vue setlocal foldmethod=syntax
-au FileType vue setlocal foldlevel=2
 let g:html_indent_inctags="html,head,body,li,p,header,footer,a,span,nav"
 
 " THEME
@@ -445,9 +444,3 @@ autocmd! BufWritePost * Neomake
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-augroup AutoSaveFolds
-  autocmd!
-  autocmd BufWinLeave * mkview
-  autocmd BufWinEnter * silent loadview
-augroup END
