@@ -44,6 +44,8 @@ Plugin 'neomake/neomake'
 Plugin 'elzr/vim-json'
 call vundle#end()   
 filetype plugin indent on 
+set runtimepath-=~/.vim/bundle/YouCompleteMe
+set runtimepath-=~/.vim/bundle/ultisnips
 
 nmap gi <Plug>IndentGuidesToggle
 map <Leader>rt :!git ctags<CR>
@@ -101,6 +103,12 @@ inoremap ZZ <Esc>ZZ
 nmap <F8> :TagbarToggle<CR>
 nnoremap <Leader>n :lnext<CR>
 nnoremap <Leader>p :lprev<CR>
+nnoremap <silent> <Leader>ts
+             \ : if exists("syntax_on") <BAR>
+             \    syntax off <BAR>
+             \ else <BAR>  
+             \    syntax enable <BAR>
+             \ endif<CR>   
 
 " GENERAL SETTINGS
 
