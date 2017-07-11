@@ -442,7 +442,6 @@ let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 let delimitMate_jump_expansion = 1
 
-let g:indent_guides_enable_on_vim_startup = 1                                   
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_guide_size = 1                                              
 
@@ -452,3 +451,5 @@ autocmd! BufWritePost * Neomake
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+highlight LineNr ctermbg=black
