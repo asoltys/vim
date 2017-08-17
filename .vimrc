@@ -34,7 +34,6 @@ Plugin 'ervandew/supertab'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'metakirby5/codi.vim'
-Plugin 'Raimondi/delimitMate'
 Plugin 'SirVer/ultisnips'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'ternjs/tern_for_vim'
@@ -42,6 +41,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'wincent/ferret'
 Plugin 'neomake/neomake'
 Plugin 'elzr/vim-json'
+Plugin 'junegunn/fzf'
 call vundle#end()   
 filetype plugin indent on 
 set runtimepath-=~/.vim/bundle/YouCompleteMe
@@ -437,10 +437,6 @@ let g:ctrlp_extensions = ['buffertag', 'dir']
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
-
-let delimitMate_expand_cr = 1
-let delimitMate_expand_space = 1
-let delimitMate_jump_expansion = 1
 
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_guide_size = 1                                              
