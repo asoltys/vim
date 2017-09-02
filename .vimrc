@@ -7,44 +7,29 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'mileszs/ack.vim'
-Plugin 'juvenn/mustache.vim'
 Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-rails'
 Plugin 'groenewege/vim-less'
 Plugin 'chriskempson/base16-vim.git'
 Plugin 'OrangeT/vim-csharp.git'
-"Plugin 'isRuslan/vim-es6'
 Plugin 'pangloss/vim-javascript'
 Plugin 'posva/vim-vue'
 Plugin 'othree/html5.vim'
 Plugin 'asoltys/vim-pug'
 Plugin 'wavded/vim-stylus'
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'scrooloose/nerdtree'
 Plugin 'StanAngeloff/php.vim.git'
 Plugin 'nathanaelkane/vim-indent-guides.git'
 Plugin 'Shougo/vimproc.vim.git'
-Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'tmhedberg/matchit'
 Plugin 'schickling/vim-bufonly'
 Plugin 'tpope/vim-surround'
-Plugin 'vim-scripts/taglist.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'metakirby5/codi.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'ternjs/tern_for_vim'
-Plugin 'honza/vim-snippets'
-Plugin 'wincent/ferret'
 Plugin 'neomake/neomake'
 Plugin 'elzr/vim-json'
-Plugin 'junegunn/fzf'
+Plugin 'wincent/ferret'
+Plugin 'junegunn/fzf.vim'
 call vundle#end()   
 filetype plugin indent on 
-set runtimepath-=~/.vim/bundle/YouCompleteMe
-set runtimepath-=~/.vim/bundle/ultisnips
 
 nmap gi <Plug>IndentGuidesToggle
 map <Leader>rt :!git ctags<CR>
@@ -61,7 +46,7 @@ nnoremap <C-l> :so ~/.vimrc<CR>
 noremap <C-n> :bnext<CR>
 noremap <C-p> :bprev<CR>
 noremap <C-g> :Ack<space>
-noremap <C-f> :CtrlP<CR>
+noremap <C-f> :Files<CR>
 noremap <C-b> :CtrlPBuffer<CR>
 nnoremap Q :CtrlPMRU<CR>
 nnoremap <C-x> :BufOnly<CR>
@@ -144,7 +129,7 @@ au FileType cf set omnifunc=htmlcomplete#CompleteTags
 au FileType xml set omnifunc=xmlcomplete#CompleteTags
 au FileType html set omnifunc=htmlcomplete#CompleteTags
 au FileType ruby set omnifunc=rubycomplete#CompleteTags
-let g:html_indent_inctags="html,head,body,li,p,header,footer,a,span,nav"
+" let g:html_indent_inctags="html,head,body,p,header,footer,a,span,nav"
 
 " THEME
 "
@@ -422,17 +407,9 @@ endfunction
 vmap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>/
 
 " Use ag the silver searcher if available instead of ack
-if executable('rg')
-  let g:ackprg = 'rg'
+if executable('ag')
+  let g:ackprg = 'ag'
 endif
-
-if executable('rg')
-  set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
-endif
-
-let g:ctrlp_extensions = ['buffertag', 'dir']
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
@@ -448,3 +425,17 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 highlight LineNr ctermbg=black
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
