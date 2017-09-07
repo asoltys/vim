@@ -414,11 +414,6 @@ endfunction
 " Start the find and replace command across the entire file
 vmap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>/
 
-" Use ag the silver searcher if available instead of ack
-if executable('ag')
-  let g:ackprg = 'ag'
-endif
-
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
