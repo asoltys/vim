@@ -27,7 +27,10 @@ Plugin 'tpope/vim-surround'
 Plugin 'neomake/neomake'
 Plugin 'elzr/vim-json'
 Plugin 'wincent/ferret'
+Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 call vundle#end()   
 filetype plugin indent on 
 
@@ -120,7 +123,6 @@ syntax on
 
 " FILETYPES
 au BufNewFile,BufRead *.ru set filetype=ruby
-au BufNewFile,BufRead *.json set filetype=php
 au BufNewFile,BufRead *.hbs set filetype=html
 au BufNewFile,BufRead *.vue set filetype=vue
 au BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
@@ -439,3 +441,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Advanced customization using autoload functions
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+let g:airline_theme='base16'
+
+autocmd Syntax json setlocal foldmethod=syntax
+autocmd Syntax json normal zR
