@@ -50,7 +50,7 @@ noremap <C-n> :bnext<CR>
 noremap <C-p> :bprev<CR>
 noremap <C-g> :Ack<space>
 noremap <C-f> :Files<CR>
-noremap <C-b> :CtrlPBuffer<CR>
+noremap <C-b> :Buffers<CR>
 nnoremap Q :CtrlPMRU<CR>
 nnoremap <C-x> :BufOnly<CR>
 noremap <C-z> :NERDTreeToggle<CR>
