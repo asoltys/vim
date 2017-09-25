@@ -31,6 +31,13 @@ Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-commentary'
+Plugin 'airblade/vim-rooter'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'isRuslan/vim-es6'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'jiangmiao/auto-pairs'
 call vundle#end()   
 filetype plugin indent on 
 
@@ -78,7 +85,7 @@ nnoremap <S-Left> <C-W>h
 nnoremap <S-Right> <C-W>l
 nnoremap <S-Up> <C-W>k
 nnoremap <S-Down> <C-W>j
-nnoremap <M-z> :NERDTree %:p:h<CR>
+nnoremap <Leader>c :NERDTree %:p:h<CR>
 nnoremap K Jx
 noremap qp mqGo<Esc>"qp
 noremap qd G"qdd`q
@@ -141,7 +148,7 @@ if filereadable(expand("~/.vimrc_background"))
 endif
 
 set t_Co=256
-set guifont=DejaVu\ Sans\ Mono\ 8
+set guifont=Hack
 set linespace=5
 colorscheme base16-default-dark
 
@@ -445,3 +452,9 @@ let g:airline_theme='base16'
 
 autocmd Syntax json setlocal foldmethod=syntax
 autocmd Syntax json normal zR
+autocmd FileType javascript setlocal commentstring=#\ %s
+autocmd FileType pug setlocal commentstring=#\ %s
+
+let g:UltiSnipsExpandTrigger = '<C-j>'
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
