@@ -76,9 +76,6 @@ inoremap <M-o> <Esc>o
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 nnoremap <C-CR> o<Esc>
-nnoremap <Leader>j :SplitjoinSplit<CR>
-nnoremap <Leader>k :SplitjoinJoin<CR>
-inoremap <C-CR> <C-o>:SplitjoinSplit<CR><C-o>j<C-o>A
 nnoremap <C-a> ggvG$
 nnoremap <C-e> <C-q>
 nnoremap <S-Left> <C-W>h
@@ -94,7 +91,6 @@ nnoremap < <<
 nnoremap <C-a> ggVG
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 inoremap ZZ <Esc>ZZ
-nmap <F8> :TagbarToggle<CR>
 nnoremap <Leader>n :lnext<CR>
 nnoremap <Leader>p :lprev<CR>
 nnoremap <silent> <Leader>ts
@@ -458,3 +454,4 @@ autocmd FileType pug setlocal commentstring=#\ %s
 let g:UltiSnipsExpandTrigger = '<C-j>'
 let g:UltiSnipsJumpForwardTrigger = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+let g:rooter_patterns = ['package.json', '.git/']
