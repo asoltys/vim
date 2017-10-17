@@ -36,8 +36,9 @@ Plugin 'airblade/vim-rooter'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'isRuslan/vim-es6'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'jiangmiao/auto-pairs'
+" Plugin 'jiangmiao/auto-pairs'
+Plugin 'kana/vim-textobj-user'
+Plugin 'kana/vim-textobj-fold'
 call vundle#end()   
 filetype plugin indent on 
 
@@ -93,6 +94,8 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 inoremap ZZ <Esc>ZZ
 nnoremap <Leader>n :lnext<CR>
 nnoremap <Leader>p :lprev<CR>
+nnoremap <silent> gl "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR><c-l>
+nnoremap <silent> gh "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
 nnoremap <silent> <Leader>ts
              \ : if exists("syntax_on") <BAR>
              \    syntax off <BAR>
@@ -446,8 +449,8 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 let g:airline_theme='base16'
 
+autocmd Syntax js setlocal foldmethod=syntax
 autocmd Syntax json setlocal foldmethod=syntax
-autocmd Syntax json normal zR
 autocmd FileType javascript setlocal commentstring=#\ %s
 autocmd FileType pug setlocal commentstring=#\ %s
 
@@ -455,3 +458,53 @@ let g:UltiSnipsExpandTrigger = '<C-j>'
 let g:UltiSnipsJumpForwardTrigger = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 let g:rooter_patterns = ['package.json', '.git/']
+
+if has("folding")
+  set foldenable        " enable folding
+  set foldmethod=syntax " fold based on syntax highlighting
+  set foldlevelstart=99 " start editing with all folds open
+
+  " toggle folds
+  nnoremap <Space> za
+  vnoremap <Space> za
+
+  hi Folded ctermfg=3 ctermbg=18
+
+  " Set a nicer foldtext function
+  set foldtext=MyFoldText()
+  function! MyFoldText()
+    let line = getline(v:foldstart)
+    if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
+      let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
+      let linenum = v:foldstart + 1
+      while linenum < v:foldend
+        let line = getline( linenum )
+        let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
+        if comment_content != ''
+          break
+        endif
+        let linenum = linenum + 1
+      endwhile
+      let sub = initial . ' ' . comment_content
+    else
+      let sub = line
+      let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+      if startbrace == '{'
+        let line = getline(v:foldend)
+        let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+        if endbrace == '}'
+          let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+        endif
+      endif
+    endif
+    let n = v:foldend - v:foldstart + 1
+    let info = " " . n . " lines"
+    let sub = sub . "                                                                                                                  "
+    let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+    let fold_w = getwinvar( 0, '&foldcolumn' )
+    let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
+    return sub . info
+  endfunction
+
+  set fdo-=search
+endif
