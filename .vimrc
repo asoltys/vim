@@ -47,7 +47,8 @@ map <Leader>rt :!git ctags<CR>
 map <Leader>cd :cd %:p:h<CR>
 map <Leader>date :echo system('date')<CR>
 nmap <silent> <leader>s :set nolist!<CR>
-
+nnoremap <silent> <Leader>n :set number!<CR>
+nnoremap <Leader>p :set paste!<CR>
 noremap <Leader>v v^o$h
 nnoremap <C-q> :bn <bar> bw #<CR>
 nnoremap <C-s> :w! <bar> syntax sync fromstart<CR>
@@ -59,6 +60,7 @@ noremap <C-p> :bprev<CR>
 noremap <C-g> :Ack<space>
 noremap <C-f> :Files<CR>
 noremap <C-b> :Buffers<CR>
+nnoremap <C-h> :History<CR>
 nnoremap Q :CtrlPMRU<CR>
 nnoremap <C-x> :BufOnly<CR>
 noremap <C-z> :NERDTreeToggle<CR>
@@ -70,7 +72,6 @@ vnoremap <C-b> :s/^/# <CR>
 nnoremap <C-m> <C-v>
 noremap <C-v> "+p
 inoremap <C-v> <Esc>"+pa
-nnoremap <C-h> :vert bel help<Space>
 nnoremap ' `
 nnoremap ` '
 inoremap <M-o> <Esc>o
@@ -92,10 +93,9 @@ nnoremap < <<
 nnoremap <C-a> ggVG
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 inoremap ZZ <Esc>ZZ
-nnoremap <Leader>n :lnext<CR>
-nnoremap <Leader>p :lprev<CR>
 nnoremap <silent> gl "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR><c-l>
 nnoremap <silent> gh "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
+nmap <F8> :TagbarToggle<CR>
 nnoremap <silent> <Leader>ts
              \ : if exists("syntax_on") <BAR>
              \    syntax off <BAR>
@@ -130,8 +130,7 @@ syntax on
 " FILETYPES
 au BufNewFile,BufRead *.ru set filetype=ruby
 au BufNewFile,BufRead *.hbs set filetype=html
-au BufNewFile,BufRead *.vue set filetype=vue
-au BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+au BufRead,BufNewFile *.vue setf=vue
 au FileType vue syntax sync fromstart
 au FileType cf set omnifunc=htmlcomplete#CompleteTags
 au FileType xml set omnifunc=xmlcomplete#CompleteTags
