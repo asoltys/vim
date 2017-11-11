@@ -39,6 +39,8 @@ Plugin 'isRuslan/vim-es6'
 " Plugin 'jiangmiao/auto-pairs'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-fold'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'Raimondi/delimitMate'
 call vundle#end()   
 filetype plugin indent on 
 
