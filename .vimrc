@@ -5,105 +5,43 @@ filetype off
 set rtp+=~/.fzf
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" Plugin 'VundleVim/Vundle.vim'
-" Plugin 'michaeljsmith/vim-indent-object'
-" Plugin 'tpope/vim-repeat'
-" Plugin 'groenewege/vim-less'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'tpope/vim-repeat'
+Plugin 'groenewege/vim-less'
 Plugin 'chriskempson/base16-vim.git'
-" Plugin 'OrangeT/vim-csharp.git'
-" Plugin 'pangloss/vim-javascript'
-" Plugin 'posva/vim-vue'
-" Plugin 'othree/html5.vim'
-" Plugin 'asoltys/vim-pug'
-" Plugin 'wavded/vim-stylus'
-" Plugin 'ryanoasis/vim-devicons'
-" Plugin 'scrooloose/nerdtree'
-" Plugin 'StanAngeloff/php.vim.git'
-" Plugin 'nathanaelkane/vim-indent-guides.git'
-" Plugin 'Shougo/vimproc.vim.git'
-" Plugin 'tmhedberg/matchit'
-" Plugin 'schickling/vim-bufonly'
-" Plugin 'tpope/vim-surround'
-Plugin 'neomake/neomake'
-" Plugin 'elzr/vim-json'
-" Plugin 'wincent/ferret'
+Plugin 'OrangeT/vim-csharp.git'
+Plugin 'pangloss/vim-javascript'
+Plugin 'posva/vim-vue'
+Plugin 'othree/html5.vim'
+Plugin 'asoltys/vim-pug'
+Plugin 'wavded/vim-stylus'
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'scrooloose/nerdtree'
+Plugin 'StanAngeloff/php.vim.git'
+Plugin 'nathanaelkane/vim-indent-guides.git'
+Plugin 'Shougo/vimproc.vim.git'
+Plugin 'tmhedberg/matchit'
+Plugin 'schickling/vim-bufonly'
+Plugin 'tpope/vim-surround'
+Plugin 'elzr/vim-json'
+Plugin 'wincent/ferret'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
-" Plugin 'tpope/vim-commentary'
-" Plugin 'airblade/vim-rooter'
-" Plugin 'SirVer/ultisnips'
-" Plugin 'honza/vim-snippets'
-" Plugin 'isRuslan/vim-es6'
-" Plugin 'kana/vim-textobj-user'
-" Plugin 'kana/vim-textobj-fold'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-commentary'
+Plugin 'airblade/vim-rooter'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'isRuslan/vim-es6'
+Plugin 'kana/vim-textobj-user'
+Plugin 'kana/vim-textobj-fold'
 Plugin 'Valloric/YouCompleteMe'
 " Plugin 'Raimondi/delimitMate'
+Plugin 'w0rp/ale'
 call vundle#end()   
 filetype plugin indent on 
-
-nmap gi <Plug>IndentGuidesToggle
-map <Leader>rt :!git ctags<CR>
-map <Leader>cd :cd %:p:h<CR>
-map <Leader>date :echo system('date')<CR>
-nmap <silent> <leader>s :set nolist!<CR>
-nnoremap <silent> <Leader>n :set number!<CR>
-nnoremap <Leader>p :set paste!<CR>
-noremap <Leader>v v^o$h
-nnoremap <C-q> :bn <bar> bw #<CR>
-nnoremap <C-s> :w! <bar> syntax sync fromstart<CR>
-inoremap <C-s> <Esc>:w!<CR>
-noremap <C-e><C-v> :e ~/.vimrc<CR>
-nnoremap <C-l> :so ~/.vimrc<CR>
-noremap <C-n> :bnext<CR>
-noremap <C-p> :bprev<CR>
-noremap <C-g> :Ack<space>
-noremap <C-f> :Files<CR>
-noremap <C-b> :Buffers<CR>
-nnoremap <C-h> :History<CR>
-nnoremap Q :CtrlPMRU<CR>
-nnoremap <C-x> :BufOnly<CR>
-noremap <C-z> :NERDTreeToggle<CR>
-inoremap <C-z> <Esc>dbxi
-inoremap <lt>/ </<C-X><C-O>
-inoremap <lt>, </<C-X><C-O><Esc>v<<
-vnoremap <C-c> "+y
-vnoremap <C-b> :s/^/# <CR>
-nnoremap <C-m> <C-v>
-noremap <C-v> "+p
-inoremap <C-v> <Esc>"+pa
-nnoremap ' `
-nnoremap ` '
-inoremap <M-o> <Esc>o
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-nnoremap <C-CR> o<Esc>
-nnoremap <C-a> ggvG$
-nnoremap <C-e> <C-q>
-nnoremap <S-Left> <C-W>h
-nnoremap <S-Right> <C-W>l
-nnoremap <S-Up> <C-W>k
-nnoremap <S-Down> <C-W>j
-nnoremap <Leader>c :NERDTree %:p:h<CR>
-nnoremap K Jx
-noremap qp mqGo<Esc>"qp
-noremap qd G"qdd`q
-nnoremap > >>
-nnoremap < <<
-nnoremap <C-a> ggVG
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-inoremap ZZ <Esc>ZZ
-nnoremap <silent> gl "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR><c-l>
-nnoremap <silent> gh "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
-nmap <F8> :TagbarToggle<CR>
-inoremap <expr> <Enter> pumvisible() ? "<Esc>a" : "<Enter>"
-nnoremap <silent> <Leader>ts
-             \ : if exists("syntax_on") <BAR>
-             \    syntax off <BAR>
-             \ else <BAR>  
-             \    syntax enable <BAR>
-             \ endif<CR>   
 
 " GENERAL SETTINGS
 
@@ -421,9 +359,6 @@ let g:html_indent_style1 = "inc"
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_guide_size = 1                                              
 
-let g:neomake_javascript_enabled_makers = ['eslint']
-autocmd! BufWritePost * Neomake
-
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
@@ -504,3 +439,15 @@ if has("folding")
 
   set fdo-=search
 endif
+
+let g:airline#extensions#ale#enabled = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:delimitMate_autoclose = 1
+let g:delimitMate_matchpairs = "(:),[:],{:},<:>"
+let g:delimitMate_jump_expansion = 1
+let g:delimitMate_expand_space = 1
+let g:delimitMate_expand_cr = 2
+let g:delimitMate_expand_inside_quotes = 1
+
+inoremap {<CR> {<CR>} <C-o>O
