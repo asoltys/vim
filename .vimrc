@@ -16,7 +16,6 @@ Plugin 'posva/vim-vue'
 Plugin 'othree/html5.vim'
 Plugin 'asoltys/vim-pug'
 Plugin 'wavded/vim-stylus'
-Plugin 'ryanoasis/vim-devicons'
 Plugin 'scrooloose/nerdtree'
 Plugin 'StanAngeloff/php.vim.git'
 Plugin 'nathanaelkane/vim-indent-guides.git'
@@ -37,9 +36,11 @@ Plugin 'honza/vim-snippets'
 Plugin 'isRuslan/vim-es6'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-fold'
-Plugin 'Valloric/YouCompleteMe'
 " Plugin 'Raimondi/delimitMate'
 Plugin 'w0rp/ale'
+Plugin 'wincent/terminus'
+Plugin 'majutsushi/tagbar'
+Plugin 'jparise/vim-graphql'
 call vundle#end()   
 filetype plugin indent on 
 
@@ -451,3 +452,31 @@ let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_inside_quotes = 1
 
 inoremap {<CR> {<CR>} <C-o>O
+
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }

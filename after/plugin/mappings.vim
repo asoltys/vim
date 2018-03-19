@@ -18,7 +18,6 @@ noremap <C-f> :Files<CR>
 noremap <C-b> :Buffers<CR>
 nnoremap <C-h> :History<CR>
 nnoremap <C-j> :History:<CR>
-nnoremap <C-m> :BLines<CR>
 nnoremap Q :CtrlPMRU<CR>
 nnoremap <C-x> :BufOnly<CR>
 noremap <C-z> :NERDTreeToggle<CR>
