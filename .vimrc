@@ -41,6 +41,11 @@ Plugin 'w0rp/ale'
 Plugin 'wincent/terminus'
 Plugin 'majutsushi/tagbar'
 Plugin 'jparise/vim-graphql'
+Plugin 'mxw/vim-jsx'
+Plugin 'mattn/emmet-vim'
+Plugin 'skywind3000/asyncrun.vim'
+Plugin 'tomlion/vim-solidity'
+Plugin 'rust-lang/rust.vim'
 call vundle#end()   
 filetype plugin indent on 
 
@@ -73,10 +78,6 @@ au BufNewFile,BufRead *.ru set filetype=ruby
 au BufNewFile,BufRead *.hbs set filetype=html
 au BufRead,BufNewFile *.vue setf=vue
 au FileType vue syntax sync fromstart
-au FileType cf set omnifunc=htmlcomplete#CompleteTags
-au FileType xml set omnifunc=xmlcomplete#CompleteTags
-au FileType html set omnifunc=htmlcomplete#CompleteTags
-au FileType ruby set omnifunc=rubycomplete#CompleteTags
 " let g:html_indent_inctags="html,head,body,p,header,footer,a,span,nav"
 
 " THEME
@@ -118,10 +119,6 @@ set title
 set scrolloff=3
 set incsearch
 set nohlsearch
-
-" RAGTAG
-
-let g:ragtag_global_maps = 1
 
 " NERDTREE
 
@@ -444,6 +441,9 @@ endif
 let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
+" let g:ale_echo_cursor = 0
+let g:ale_sign_error = ':o'
+let g:ale_sign_warning = '.'
 let g:delimitMate_autoclose = 1
 let g:delimitMate_matchpairs = "(:),[:],{:},<:>"
 let g:delimitMate_jump_expansion = 1
@@ -480,3 +480,14 @@ let g:tagbar_type_go = {
 	\ 'ctagsbin'  : 'gotags',
 	\ 'ctagsargs' : '-sort -silent'
 \ }
+
+let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
+
+autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
+
+let g:rustfmt_autosave = 1
