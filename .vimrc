@@ -5,52 +5,53 @@ filetype off
 set rtp+=~/.fzf
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'tpope/vim-repeat'
-Plugin 'groenewege/vim-less'
+" Plugin 'tpope/vim-repeat'
+" Plugin 'groenewege/vim-less'
 Plugin 'chriskempson/base16-vim.git'
-Plugin 'OrangeT/vim-csharp.git'
-Plugin 'pangloss/vim-javascript'
-Plugin 'posva/vim-vue'
-Plugin 'othree/html5.vim'
-Plugin 'asoltys/vim-pug'
-Plugin 'wavded/vim-stylus'
+" Plugin 'OrangeT/vim-csharp.git'
 Plugin 'scrooloose/nerdtree'
-Plugin 'StanAngeloff/php.vim.git'
+" Plugin 'StanAngeloff/php.vim.git'
 Plugin 'nathanaelkane/vim-indent-guides.git'
-Plugin 'Shougo/vimproc.vim.git'
+" Plugin 'Shougo/vimproc.vim.git'
 Plugin 'tmhedberg/matchit'
 Plugin 'schickling/vim-bufonly'
 Plugin 'tpope/vim-surround'
-Plugin 'elzr/vim-json'
+" Plugin 'elzr/vim-json'
 Plugin 'wincent/ferret'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-commentary'
-Plugin 'airblade/vim-rooter'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'tpope/vim-commentary'
+" Plugin 'airblade/vim-rooter'
+" Plugin 'SirVer/ultisnips'
+" Plugin 'honza/vim-snippets'
 Plugin 'isRuslan/vim-es6'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-fold'
 " Plugin 'Raimondi/delimitMate'
 Plugin 'w0rp/ale'
-Plugin 'wincent/terminus'
-Plugin 'majutsushi/tagbar'
-Plugin 'jparise/vim-graphql'
-Plugin 'mxw/vim-jsx'
-Plugin 'mattn/emmet-vim'
+" Plugin 'wincent/terminus'
+" Plugin 'majutsushi/tagbar'
+" Plugin 'mattn/emmet-vim'
 Plugin 'skywind3000/asyncrun.vim'
-Plugin 'tomlion/vim-solidity'
-Plugin 'rust-lang/rust.vim'
+Plugin 'prettier/vim-prettier'
+" Plugin 'styled-components/vim-styled-components'
+" Plugin 'othree/xml.vim'
+Plugin 'alvan/vim-closetag'
+Plugin 'joshdick/onedark.vim'
+Plugin 'haishanh/night-owl.vim'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'godlygeek/tabular'
+Plugin 'NLKNguyen/papercolor-theme'
 call vundle#end()   
 filetype plugin indent on 
+set omnifunc=syntaxcomplete#Complete
 
 " GENERAL SETTINGS
 
+set autoread
 set encoding=utf8
 set nocp
 set ruler
@@ -80,17 +81,10 @@ au BufRead,BufNewFile *.vue setf=vue
 au FileType vue syntax sync fromstart
 " let g:html_indent_inctags="html,head,body,p,header,footer,a,span,nav"
 
-" THEME
-"
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
-
-set t_Co=256
-set guifont=Hack
+" set t_Co=256
+set guifont=FiraCode
 set linespace=5
-colorscheme base16-default-dark
+" colorscheme base16-default-dark
 
 " BACKUPS
 
@@ -376,10 +370,10 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Advanced customization using autoload functions
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
-let g:airline_theme='base16'
 
 autocmd Syntax js setlocal foldmethod=syntax
 autocmd Syntax json setlocal foldmethod=syntax
+autocmd Syntax html setlocal foldmethod=manual
 autocmd FileType javascript setlocal commentstring=#\ %s
 autocmd FileType pug setlocal commentstring=#\ %s
 
@@ -441,6 +435,9 @@ endif
 let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
+let g:ale_linters = {
+\    'typescript': ['tslint', 'tsserver'],
+\}
 " let g:ale_echo_cursor = 0
 let g:ale_sign_error = ':o'
 let g:ale_sign_warning = '.'
@@ -488,6 +485,135 @@ let g:user_emmet_settings = {
     \  },
   \}
 
-autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
-
 let g:rustfmt_autosave = 1
+
+set ttymouse=xterm2
+set mouse=a
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+
+let g:ale_echo_msg_format = '%linter% says %s'
+let g:ale_fix_on_save = 1
+let g:ale_set_highlights = 0
+let g:ale_set_quickfix = 1
+let g:ale_set_loclist = 0
+let g:closetag_filetypes = 'html,xhtml,phtml,javascript.jsx,svelte,vue'
+
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.svelte'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.js'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,javascript.jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+"
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
+
+nnoremap zS :echo join(reverse(map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')),' ')<cr>
+
+syntax on
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+colorscheme night-owl
+" set background=light
+colorscheme PaperColor
+
+
+let g:markdown_fenced_languages = ['javascript', 'html']
+
+nmap gi <Plug>IndentGuidesToggle
+map <Leader>rt :!git ctags<CR>
+map <Leader>cd :cd %:p:h<CR>
+map <Leader>date :echo system('date')<CR>
+nmap <silent> <leader>s :set nolist!<CR>
+nnoremap <silent> <Leader>n :set number!<CR>
+nnoremap <Leader>p :set paste!<CR>
+noremap <Leader>v v^o$h
+nnoremap <C-q> :bn <bar> bw #<CR>
+nnoremap <C-s> :w! <bar> syntax sync fromstart<CR>
+inoremap <C-s> <Esc>:w!<CR>
+noremap <C-e><C-v> :e ~/.vimrc<CR>
+nnoremap <C-l> :so ~/.vimrc<CR>
+noremap <C-n> :bnext<CR>
+noremap <C-p> :bprev<CR>
+noremap <C-g> :Ack<space>
+noremap <C-f> :Files<CR>
+noremap <C-b> :Buffers<CR>
+nnoremap <C-h> :History<CR>
+nnoremap <C-j> :History:<CR>
+nnoremap <C-x> :BufOnly<CR>
+noremap <C-z> :NERDTreeToggle<CR>
+inoremap <C-z> <Esc>dbxi
+inoremap <lt>/ </<C-X><C-O>
+inoremap <lt>, </<C-X><C-O><Esc>v<<
+vnoremap <C-c> "+y
+vnoremap <C-b> :s/^/# <CR>
+noremap <C-v> "+p
+inoremap <C-v> <Esc>"+pa
+nnoremap ' `
+nnoremap ` '
+inoremap <M-o> <Esc>o
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+nnoremap <C-CR> o<Esc>
+nnoremap <C-e> <C-q>
+nnoremap <S-Left> <C-W>h
+nnoremap <S-Right> <C-W>l
+nnoremap <S-Up> <C-W>k
+nnoremap <S-Down> <C-W>j
+nnoremap <Leader>c :NERDTree %:p:h<CR>
+nnoremap K Jx
+noremap qp mqGo<Esc>"qp
+noremap qd G"qdd`q
+nnoremap > >>
+nnoremap < <<
+nnoremap <C-a> ggVG
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+inoremap ZZ <Esc>ZZ
+nnoremap <silent> gl "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR><c-l>
+nnoremap <silent> gh "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o><c-l>
+nmap <F8> :TagbarToggle<CR>
+nnoremap <silent> <Leader>ts
+             \ : if exists("syntax_on") <BAR>
+             \    syntax off <BAR>
+             \ else <BAR>  
+             \    syntax enable <BAR>
+             \ endif<CR>   
+nnoremap <C-k> :ALENext<cr>
