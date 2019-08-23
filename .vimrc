@@ -39,12 +39,12 @@ Plugin 'skywind3000/asyncrun.vim'
 Plugin 'prettier/vim-prettier'
 " Plugin 'styled-components/vim-styled-components'
 " Plugin 'othree/xml.vim'
-Plugin 'alvan/vim-closetag'
 Plugin 'joshdick/onedark.vim'
 Plugin 'haishanh/night-owl.vim'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'godlygeek/tabular'
 Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'alvan/vim-closetag'
 call vundle#end()   
 filetype plugin indent on 
 set omnifunc=syntaxcomplete#Complete
@@ -436,17 +436,69 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_linters = {
+\    'html': ['prettier'],
+\    'jsx': ['prettier'],
+\    'javascript': ['prettier'],
 \    'typescript': ['tslint', 'tsserver'],
+\    'svelte': ['prettier'],
+\}
+let g:ale_fixers = {
+\    'html': ['prettier'],
+\    'jsx': ['prettier'],
+\    'javascript': ['prettier'],
+\    'typescript': ['tslint', 'tsserver'],
+\    'svelte': ['prettier'],
 \}
 " let g:ale_echo_cursor = 0
 let g:ale_sign_error = ':o'
 let g:ale_sign_warning = '.'
-let g:delimitMate_autoclose = 1
-let g:delimitMate_matchpairs = "(:),[:],{:},<:>"
-let g:delimitMate_jump_expansion = 1
-let g:delimitMate_expand_space = 1
-let g:delimitMate_expand_cr = 2
-let g:delimitMate_expand_inside_quotes = 1
+" let g:ale_javascript_eslint_executable = 'eslint'
+" let g:ale_javascript_eslint_options = ''
+" let g:ale_javascript_eslint_suppress_eslintignore = 0
+" let g:ale_javascript_eslint_use_global = 0
+
+let g:closetag_filetypes = 'html,xhtml,phtml,javascript.jsx,svelte,vue'
+ 
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.svelte'
+ 
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.js'
+ 
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml'
+ 
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,javascript.jsx'
+ 
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+ 
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+"
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+ 
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = ':'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
 
 inoremap {<CR> {<CR>} <C-o>O
 
@@ -497,50 +549,10 @@ autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . 
 let g:ale_echo_msg_format = '%linter% says %s'
 let g:ale_fix_on_save = 1
 let g:ale_set_highlights = 0
-let g:ale_set_quickfix = 1
+let g:ale_set_quickfix = 0
 let g:ale_set_loclist = 0
-let g:closetag_filetypes = 'html,xhtml,phtml,javascript.jsx,svelte,vue'
 
-" filenames like *.xml, *.html, *.xhtml, ...
-" These are the file extensions where this plugin is enabled.
-"
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.svelte'
-
-" filenames like *.xml, *.xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-"
-let g:closetag_xhtml_filenames = '*.xhtml,*.js'
-
-" filetypes like xml, html, xhtml, ...
-" These are the file types where this plugin is enabled.
-"
-let g:closetag_filetypes = 'html,xhtml,phtml'
-
-" filetypes like xml, xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-"
-let g:closetag_xhtml_filetypes = 'xhtml,javascript.jsx'
-
-" integer value [0|1]
-" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
-"
-let g:closetag_emptyTags_caseSensitive = 1
-
-" dict
-" Disables auto-close if not in a "valid" region (based on filetype)
-"
-let g:closetag_regions = {
-    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-    \ 'javascript.jsx': 'jsxRegion',
-    \ }
-
-" Shortcut for closing tags, default is '>'
-"
-let g:closetag_shortcut = '>'
-
-" Add > at current position without closing the current tag, default is ''
-"
-let g:closetag_close_shortcut = '<leader>>'
+au FileType svelte set omnifunc=xmlcomplete#CompleteTags
 
 nnoremap zS :echo join(reverse(map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')),' ')<cr>
 
@@ -617,3 +629,8 @@ nnoremap <silent> <Leader>ts
              \    syntax enable <BAR>
              \ endif<CR>   
 nnoremap <C-k> :ALENext<cr>
+
+let g:polyglot_disabled = ['styled-components']
+autocmd BufNewFile,BufRead *.js set filetype=javascript.jsx
+autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+
