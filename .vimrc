@@ -3,49 +3,23 @@ set nocompatible
 filetype off
 
 set rtp+=~/.fzf
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'michaeljsmith/vim-indent-object'
-" Plugin 'tpope/vim-repeat'
-" Plugin 'groenewege/vim-less'
-Plugin 'chriskempson/base16-vim.git'
-" Plugin 'OrangeT/vim-csharp.git'
-Plugin 'scrooloose/nerdtree'
-" Plugin 'StanAngeloff/php.vim.git'
-Plugin 'nathanaelkane/vim-indent-guides.git'
-" Plugin 'Shougo/vimproc.vim.git'
-Plugin 'tmhedberg/matchit'
-Plugin 'schickling/vim-bufonly'
-Plugin 'tpope/vim-surround'
-" Plugin 'elzr/vim-json'
-Plugin 'wincent/ferret'
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
-" Plugin 'tpope/vim-commentary'
-" Plugin 'airblade/vim-rooter'
-" Plugin 'SirVer/ultisnips'
-" Plugin 'honza/vim-snippets'
-Plugin 'isRuslan/vim-es6'
-Plugin 'kana/vim-textobj-user'
-Plugin 'kana/vim-textobj-fold'
-" Plugin 'Raimondi/delimitMate'
-Plugin 'w0rp/ale'
-" Plugin 'wincent/terminus'
-" Plugin 'majutsushi/tagbar'
-" Plugin 'mattn/emmet-vim'
-Plugin 'skywind3000/asyncrun.vim'
-Plugin 'prettier/vim-prettier'
-" Plugin 'styled-components/vim-styled-components'
-" Plugin 'othree/xml.vim'
-Plugin 'joshdick/onedark.vim'
-Plugin 'haishanh/night-owl.vim'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'godlygeek/tabular'
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'alvan/vim-closetag'
-call vundle#end()   
+call plug#begin('~/.vim/plugged')
+Plug 'w0rp/ale'
+Plug 'wincent/ferret'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'tmhedberg/matchit'
+Plug 'scrooloose/nerdtree'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'schickling/vim-bufonly'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'sheerun/vim-polyglot'
+Plug 'prettier/vim-prettier'
+Plug 'tpope/vim-surround'
+Plug 'kana/vim-textobj-fold'
+Plug 'kana/vim-textobj-user'
+call plug#end()
 filetype plugin indent on 
 set omnifunc=syntaxcomplete#Complete
 
@@ -84,7 +58,6 @@ au FileType vue syntax sync fromstart
 " set t_Co=256
 set guifont=FiraCode
 set linespace=5
-" colorscheme base16-default-dark
 
 " BACKUPS
 
@@ -457,49 +430,6 @@ let g:ale_sign_warning = '.'
 " let g:ale_javascript_eslint_suppress_eslintignore = 0
 " let g:ale_javascript_eslint_use_global = 0
 
-let g:closetag_filetypes = 'html,xhtml,phtml,javascript.jsx,svelte,vue'
- 
-" filenames like *.xml, *.html, *.xhtml, ...
-" These are the file extensions where this plugin is enabled.
-"
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.svelte'
- 
-" filenames like *.xml, *.xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-"
-let g:closetag_xhtml_filenames = '*.xhtml,*.js'
- 
-" filetypes like xml, html, xhtml, ...
-" These are the file types where this plugin is enabled.
-"
-let g:closetag_filetypes = 'html,xhtml,phtml'
- 
-" filetypes like xml, xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-"
-let g:closetag_xhtml_filetypes = 'xhtml,javascript.jsx'
- 
-" integer value [0|1]
-" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
-"
-let g:closetag_emptyTags_caseSensitive = 1
- 
-" dict
-" Disables auto-close if not in a "valid" region (based on filetype)
-"
-let g:closetag_regions = {
-    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-    \ 'javascript.jsx': 'jsxRegion',
-    \ }
- 
-" Shortcut for closing tags, default is '>'
-"
-let g:closetag_shortcut = ':'
-
-" Add > at current position without closing the current tag, default is ''
-"
-let g:closetag_close_shortcut = '<leader>>'
-
 inoremap {<CR> {<CR>} <C-o>O
 
 let g:tagbar_type_go = {
@@ -553,6 +483,8 @@ let g:ale_set_quickfix = 0
 let g:ale_set_loclist = 0
 
 au FileType svelte set omnifunc=xmlcomplete#CompleteTags
+au FileType javascript.jsx set omnifunc=xmlcomplete#CompleteTags
+au FileType vue set omnifunc=xmlcomplete#CompleteTags
 
 nnoremap zS :echo join(reverse(map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')),' ')<cr>
 
@@ -563,10 +495,8 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-colorscheme night-owl
-" set background=light
+set background=dark
 colorscheme PaperColor
-
 
 let g:markdown_fenced_languages = ['javascript', 'html']
 
