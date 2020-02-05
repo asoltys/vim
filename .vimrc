@@ -8,7 +8,6 @@ Plug 'w0rp/ale'
 Plug 'wincent/ferret'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'tmhedberg/matchit'
 Plug 'scrooloose/nerdtree'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'schickling/vim-bufonly'
@@ -19,9 +18,17 @@ Plug 'prettier/vim-prettier'
 Plug 'tpope/vim-surround'
 Plug 'kana/vim-textobj-fold'
 Plug 'kana/vim-textobj-user'
+Plug 'tmhedberg/matchit'
+Plug 'chrisbra/NrrwRgn'
+Plug 'Shougo/deol.nvim'
+Plug 'posva/vim-vue'
+Plug 'ervandew/supertab'
 call plug#end()
 filetype plugin indent on 
 set omnifunc=syntaxcomplete#Complete
+
+packadd! matchit
+runtime macros/matchit.vim
 
 " GENERAL SETTINGS
 
@@ -344,9 +351,10 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " Advanced customization using autoload functions
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
+set foldmethod=syntax
 autocmd Syntax js setlocal foldmethod=syntax
 autocmd Syntax json setlocal foldmethod=syntax
-autocmd Syntax html setlocal foldmethod=manual
+autocmd FileType html setlocal foldmethod=syntax
 autocmd FileType javascript setlocal commentstring=#\ %s
 autocmd FileType pug setlocal commentstring=#\ %s
 
@@ -357,14 +365,13 @@ let g:rooter_patterns = ['package.json', '.git/']
 
 if has("folding")
   set foldenable        " enable folding
-  set foldmethod=syntax " fold based on syntax highlighting
   set foldlevelstart=99 " start editing with all folds open
 
   " toggle folds
   nnoremap <Space> za
   vnoremap <Space> za
 
-  hi Folded ctermfg=3 ctermbg=18
+  " hi Folded ctermfg=3 ctermbg=18
 
   " Set a nicer foldtext function
   set foldtext=MyFoldText()
@@ -421,6 +428,7 @@ let g:ale_fixers = {
 \    'javascript': ['prettier'],
 \    'typescript': ['tslint', 'tsserver'],
 \    'svelte': ['prettier'],
+\    'vue': ['prettier'],
 \}
 " let g:ale_echo_cursor = 0
 let g:ale_sign_error = ':o'
@@ -477,7 +485,7 @@ autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 
 let g:ale_echo_msg_format = '%linter% says %s'
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_set_highlights = 0
 let g:ale_set_quickfix = 0
 let g:ale_set_loclist = 0
@@ -504,7 +512,6 @@ nmap gi <Plug>IndentGuidesToggle
 map <Leader>rt :!git ctags<CR>
 map <Leader>cd :cd %:p:h<CR>
 map <Leader>date :echo system('date')<CR>
-nmap <silent> <leader>s :set nolist!<CR>
 nnoremap <silent> <Leader>n :set number!<CR>
 nnoremap <Leader>p :set paste!<CR>
 noremap <Leader>v v^o$h
@@ -546,7 +553,6 @@ noremap qp mqGo<Esc>"qp
 noremap qd G"qdd`q
 nnoremap > >>
 nnoremap < <<
-nnoremap <C-a> ggVG
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 inoremap ZZ <Esc>ZZ
 nnoremap <silent> gl "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR><c-l>
@@ -559,8 +565,19 @@ nnoremap <silent> <Leader>ts
              \    syntax enable <BAR>
              \ endif<CR>   
 nnoremap <C-k> :ALENext<cr>
+nnoremap <Leader>l :ALEFix<cr>:w<cr>
 
 let g:polyglot_disabled = ['styled-components']
 autocmd BufNewFile,BufRead *.js set filetype=javascript.jsx
 autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
 
+command! -nargs=* -bang -range -complete=filetype NN
+              \ :<line1>,<line2> call nrrwrgn#NrrwRgn('',<q-bang>)
+              \ | set filetype=<args>
+
+tnoremap <ESC>   <C-\><C-n>
+
+let g:prettier#quickfix_enabled = 0
+let g:prettier#quickfix_auto_focus = 0
+let g:polyglot_disabled = ['vue']
+let g:vue_pre_processors='detect_on_enter'
