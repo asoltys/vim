@@ -4,7 +4,7 @@ filetype off
 
 set rtp+=~/.fzf
 call plug#begin('~/.vim/plugged')
-Plug 'w0rp/ale'
+Plug 'leafgarland/typescript-vim'
 Plug 'wincent/ferret'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -13,7 +13,8 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'schickling/vim-bufonly'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
+Plug 'evanleck/vim-svelte'
 Plug 'prettier/vim-prettier'
 Plug 'tpope/vim-surround'
 Plug 'kana/vim-textobj-fold'
@@ -23,6 +24,8 @@ Plug 'chrisbra/NrrwRgn'
 Plug 'Shougo/deol.nvim'
 Plug 'posva/vim-vue'
 Plug 'ervandew/supertab'
+Plug 'w0rp/ale'
+Plug 'kana/vim-fakeclip'
 call plug#end()
 filetype plugin indent on 
 set omnifunc=syntaxcomplete#Complete
@@ -421,6 +424,7 @@ let g:ale_linters = {
 \    'javascript': ['prettier'],
 \    'typescript': ['tslint', 'tsserver'],
 \    'svelte': ['prettier'],
+\    'vue': ['prettier'],
 \}
 let g:ale_fixers = {
 \    'html': ['prettier'],
@@ -567,7 +571,6 @@ nnoremap <silent> <Leader>ts
 nnoremap <C-k> :ALENext<cr>
 nnoremap <Leader>l :ALEFix<cr>:w<cr>
 
-let g:polyglot_disabled = ['styled-components']
 autocmd BufNewFile,BufRead *.js set filetype=javascript.jsx
 autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
 
@@ -577,7 +580,11 @@ command! -nargs=* -bang -range -complete=filetype NN
 
 tnoremap <ESC>   <C-\><C-n>
 
+let g:ale_linters_explicit = 1
 let g:prettier#quickfix_enabled = 0
 let g:prettier#quickfix_auto_focus = 0
 let g:polyglot_disabled = ['vue']
 let g:vue_pre_processors='detect_on_enter'
+
+au FileType gitcommit setlocal tw=72
+filetype indent plugin on
