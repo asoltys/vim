@@ -37,6 +37,7 @@ runtime macros/matchit.vim
 
 " GENERAL SETTINGS
 
+set vb t_vb=     " no visual bell & flash
 set autoread
 set encoding=utf8
 set nocp
