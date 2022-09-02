@@ -26,6 +26,8 @@ Plug 'posva/vim-vue'
 Plug 'ervandew/supertab'
 Plug 'w0rp/ale'
 Plug 'kana/vim-fakeclip'
+Plug 'rhysd/conflict-marker.vim'
+Plug 'tomtom/tcomment_vim'
 call plug#end()
 filetype plugin indent on 
 set omnifunc=syntaxcomplete#Complete
@@ -524,6 +526,7 @@ nnoremap <C-s> :w! <bar> syntax sync fromstart<CR>
 inoremap <C-s> <Esc>:w!<CR>
 noremap <C-e><C-v> :e ~/.vimrc<CR>
 nnoremap <C-l> :so ~/.vimrc<CR>
+inoremap <C-l> console.log()<Esc>i
 noremap <C-n> :bnext<CR>
 noremap <C-p> :bprev<CR>
 noremap <C-g> :Ack<space>
@@ -578,7 +581,7 @@ command! -nargs=* -bang -range -complete=filetype NN
               \ :<line1>,<line2> call nrrwrgn#NrrwRgn('',<q-bang>)
               \ | set filetype=<args>
 
-tnoremap <ESC>   <C-\><C-n>
+" tnoremap <ESC><ESC>   <C-\><C-n>
 
 let g:ale_linters_explicit = 1
 let g:prettier#quickfix_enabled = 0
@@ -588,3 +591,6 @@ let g:vue_pre_processors='detect_on_enter'
 
 au FileType gitcommit setlocal tw=72
 filetype indent plugin on
+
+let g:fzf_layout = { 'down': '40%' }
+
