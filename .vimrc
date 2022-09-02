@@ -14,7 +14,7 @@ Plug 'schickling/vim-bufonly'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'michaeljsmith/vim-indent-object'
 " Plug 'sheerun/vim-polyglot'
-Plug 'evanleck/vim-svelte'
+Plug 'evanleck/vim-svelte', { 'branch': 'main' }
 Plug 'prettier/vim-prettier'
 Plug 'tpope/vim-surround'
 Plug 'kana/vim-textobj-fold'
