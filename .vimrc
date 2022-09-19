@@ -10,6 +10,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'chriskempson/base16-vim'
 Plug 'schickling/vim-bufonly'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'michaeljsmith/vim-indent-object'
@@ -510,8 +511,13 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-set background=dark
-colorscheme PaperColor
+if exists('$BASE16_THEME')
+      \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+    let base16colorspace=256
+    colorscheme base16-$BASE16_THEME
+endif
+" set background=dark
+" colorscheme PaperColor
 
 let g:markdown_fenced_languages = ['javascript', 'html']
 
