@@ -14,7 +14,6 @@ Plug 'asoltys/base16-vim'
 Plug 'schickling/vim-bufonly'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'michaeljsmith/vim-indent-object'
-" Plug 'sheerun/vim-polyglot'
 Plug 'evanleck/vim-svelte', { 'branch': 'main' }
 Plug 'prettier/vim-prettier'
 Plug 'tpope/vim-surround'
@@ -29,6 +28,7 @@ Plug 'w0rp/ale'
 Plug 'kana/vim-fakeclip'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 filetype plugin indent on 
 set omnifunc=syntaxcomplete#Complete
@@ -365,9 +365,6 @@ autocmd FileType html setlocal foldmethod=syntax
 autocmd FileType javascript setlocal commentstring=#\ %s
 autocmd FileType pug setlocal commentstring=#\ %s
 
-let g:UltiSnipsExpandTrigger = '<C-j>'
-let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 let g:rooter_patterns = ['package.json', '.git/']
 
 if has("folding")
@@ -521,6 +518,10 @@ endif
 
 let g:markdown_fenced_languages = ['javascript', 'html']
 
+nnoremap ]q :cnext<CR>
+nnoremap [q :cprev<CR>
+nnoremap <C-h> :0Gclog<CR>
+vmap <leader>gl :Gclog<CR>
 nmap gi <Plug>IndentGuidesToggle
 map <Leader>rt :!git ctags<CR>
 map <Leader>cd :cd %:p:h<CR>
@@ -530,7 +531,7 @@ nnoremap <Leader>p :set paste!<CR>
 noremap <Leader>v v^o$h
 nnoremap <C-q> :bn <bar> bw #<CR>
 nnoremap <C-s> :w! <bar> syntax sync fromstart<CR>
-inoremap <C-s> <Esc>:w!<CR>
+inoremap <C-s> <Esc>:w!<CR><CR>
 noremap <C-e><C-v> :e ~/.vimrc<CR>
 nnoremap <C-l> :so ~/.vimrc<CR>
 inoremap <C-l> console.log()<Esc>i
@@ -539,8 +540,6 @@ noremap <C-p> :bprev<CR>
 noremap <C-g> :Ack<space>
 noremap <C-f> :Files<CR>
 noremap <C-b> :Buffers<CR>
-nnoremap <C-h> :History<CR>
-nnoremap <C-j> :History:<CR>
 nnoremap <C-x> :BufOnly<CR>
 noremap <C-z> :NERDTreeToggle<CR>
 inoremap <C-z> <Esc>dbxi
@@ -583,6 +582,7 @@ nnoremap <Leader>l :ALEFix<cr>:w<cr>
 
 autocmd BufNewFile,BufRead *.js set filetype=javascript.jsx
 autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+au BufNewFile,BufRead *.ino set filetype=cpp
 
 command! -nargs=* -bang -range -complete=filetype NN
               \ :<line1>,<line2> call nrrwrgn#NrrwRgn('',<q-bang>)
