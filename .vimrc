@@ -134,7 +134,7 @@ let g:indent_guides_guide_size = 1
 highlight LineNr ctermbg=black
 
 let g:ale_fixers = {
-\    'html': ['prettier'],
+  \    'html': ['prettier'],
 \    'jsx': ['prettier'],
 \    'javascript': ['prettier'],
 \    'typescript': ['tslint', 'tsserver'],
