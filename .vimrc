@@ -191,9 +191,9 @@ vmap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>/
 
 let g:ale_fixers = {
   \ 'html': ['prettier'],
-  \ 'javascript': ['prettier'],
-  \ 'typescript': ['prettier'],
-  \ 'svelte': ['prettier'],
+  \ 'javascript': ['biome'],
+  \ 'typescript': ['biome'],
+  \ 'svelte': ['biome'],
   \ 'vue': ['prettier']
 \}
 autocmd User ALEFixPost write
