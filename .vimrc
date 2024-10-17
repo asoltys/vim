@@ -53,7 +53,7 @@ set tags=./tags,./TAGS,tags;~,TAGS;~
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 
-set wildignore+=*.o,*.obj,.git,node_modules,tags,*.swp
+set wildignore+=*.o,*.obj,.git,node_modules,tags,*.swp,rusty-tags.vi
 
 syntax on
 
@@ -137,7 +137,7 @@ let g:ale_fixers = {
   \    'html': ['prettier'],
 \    'jsx': ['prettier'],
 \    'javascript': ['prettier'],
-\    'typescript': ['tslint', 'tsserver'],
+\    'typescript': ['prettier'],
 \    'svelte': ['prettier'],
 \    'vue': ['prettier'],
 \}
@@ -197,3 +197,5 @@ nnoremap < <<
 inoremap ZZ <Esc>ZZ
 nnoremap <Leader>l :ALEFix<cr>:w<cr>
 vmap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>/
+
+let g:svelte_preprocessors = ['typescript']
