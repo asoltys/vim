@@ -25,6 +25,7 @@ Plug 'kana/vim-fakeclip'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
+Plug 'elixir-editors/vim-elixir'
 call plug#end()
 filetype plugin indent on 
 set omnifunc=syntaxcomplete#Complete
@@ -33,13 +34,13 @@ packadd! matchit
 runtime macros/matchit.vim
 
 " GENERAL SETTINGS
-"
+
 set vb t_vb=     " no visual bell & flash
 set autoread
 set encoding=utf8
 set nocp
 set ruler
-set listchars=tab:>-,trail:·,eol:$
+set listchars=tab:>-,trail:ï¿½,eol:$
 set shortmess=atI
 set cmdheight=2
 set visualbell
@@ -49,24 +50,24 @@ set hidden
 set history=1000
 set wrap
 set tags=./tags,./TAGS,tags;~,TAGS;~
-"
+
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
-"
+
 set wildignore+=*.o,*.obj,.git,node_modules,tags,*.swp,rusty-tags.vi
-"
+
 syntax on
-"
+
 " BACKUPS
-"
+
 set nobackup
 set nowritebackup
 set noswapfile
 set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
-"
+
 " INDENTING
-"
+
 set smartindent
 set softtabstop=2
 set shiftwidth=2
@@ -74,9 +75,9 @@ set tabstop=2
 set expandtab
 set bs=2
 set backspace=indent,eol,start
-"
+
 " SEARCHING
-"
+
 set gp=grep\ -nr
 set ignorecase
 set smartcase
@@ -84,11 +85,11 @@ set title
 set scrolloff=3
 set incsearch
 set nohlsearch
-"
+
 " NERDTREE
-"
+
 let g:NERDTreeChDirMode=2
-"
+
 " Escape special characters in a string for exact matching.
 " This is useful to copying strings from the file to the search tool
 " Based on this - http://peterodding.com/code/vim/profile/autoload/xolox/escape.vim
@@ -100,7 +101,7 @@ function! EscapeString (string)
   let string = substitute(string, '\n', '\\n', 'g')
   return string
 endfunction
-"
+
 " Get the current visual block for search and replaces
 " This function passed the visual block through a string escape function
 " Based on this - http://stackoverflow.com/questions/676600/vim-replace-selected-text/677918#677918
@@ -110,42 +111,42 @@ function! GetVisual() range
   let regtype_save = getregtype('"')
   let cb_save = &clipboard
   set clipboard&
-"
+
   " Put the current visual selection in the " register
   normal! ""gvy
   let selection = getreg('"')
-"
+
   " Put the saved registers and clipboards back
   call setreg('"', reg_save, regtype_save)
   let &clipboard = cb_save
-"
+
   "Escape any special characters in the selection
   let escaped_selection = EscapeString(selection)
-"
+
   return escaped_selection
 endfunction
-"
+
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
-"
+
 let g:indent_guides_auto_colors = 1
 let g:indent_guides_guide_size = 1                                              
-"
-highlight LineNr ctermbg=black
-"
+
+" highlight LineNr ctermbg=black
+
 set ttymouse=xterm2
 set mouse=a
-"
+
 let g:rustfmt_autosave = 1
-"
-au BufRead *.rs :setlocal tags=./rusty-tags.vi;/
-au BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+
+" au BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+" au BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 au FileType svelte set omnifunc=xmlcomplete#CompleteTags
 au FileType vue set omnifunc=xmlcomplete#CompleteTags
 au BufNewFile,BufRead *.ino set filetype=cpp
 au FileType gitcommit setlocal tw=72
 filetype indent plugin on
-"
+
 let g:fzf_layout = { 'down': '40%' }
 
 syntax on
@@ -154,9 +155,9 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-"
-set background=dark
+
 colorscheme PaperColor
+set background=dark
 
 nnoremap ]q :cnext<CR>
 nnoremap [q :cprev<CR>
@@ -189,11 +190,29 @@ inoremap ZZ <Esc>ZZ
 nnoremap <Leader>l :ALEFix<CR>
 vmap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>/
 
-let g:ale_fixers = {
-  \ 'html': ['prettier'],
-  \ 'javascript': ['biome'],
-  \ 'typescript': ['biome'],
-  \ 'svelte': ['biome'],
-  \ 'vue': ['prettier']
+let g:ale_rust_rustfmt_options = '--edition 2021'
+
+let g:ale_linters = {
+\   'svelte': ['tsserver'],
+\   'typescript': ['tsserver'],
 \}
-autocmd User ALEFixPost write
+
+function! OxfmtFixFile()
+  let l:view = winsaveview()
+  let l:ext = expand('%:e')
+  let l:input = join(getline(1, '$'), "\n")
+  if l:ext ==# 'svelte'
+    let l:output = systemlist(expand('~/oxc/target/debug/svelte-fmt'), l:input)
+    if v:shell_error == 0 && len(l:output) > 0
+      silent %delete _
+      call setline(1, l:output)
+    endif
+  else
+    write
+    silent call system(expand('~/oxc/target/debug/oxfmt') . ' --write ' . shellescape(expand('%:p')))
+    edit
+  endif
+  call winrestview(l:view)
+endfunction
+
+nnoremap <Leader>l :call OxfmtFixFile()<CR>
